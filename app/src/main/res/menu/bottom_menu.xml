@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/bottom_menu_garage"
+    <item android:id="@+id/bottom_menu_sign"
         android:icon="@drawable/sign"
         android:title="签到"
         />
-    <item android:id="@+id/bottom_menu_fast"
+    <item android:id="@+id/bottom_menu_task"
         android:icon="@drawable/task"
         android:title="任务"
         />
-    <item android:id="@+id/bottom_menu_navi"
+    <item android:id="@+id/bottom_menu_about"
         android:icon="@drawable/about"
         android:title="关于"
         />

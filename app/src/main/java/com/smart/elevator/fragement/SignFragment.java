@@ -40,7 +40,7 @@ public class SignFragment extends Fragment {
     }
 
     public void initView(View view){
-        mSignListView = view.findViewById(R.id.task_list);
+        mSignListView = view.findViewById(R.id.sign_listview);
         Sign sign = new Sign();
         mSign.add(sign);
         mSign.add(sign);

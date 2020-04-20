@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivtiy {
             }
         });
 
-        mBottomMenu.setSelectedItemId(R.id.bottom_menu_garage);
+        mBottomMenu.setSelectedItemId(R.id.bottom_menu_task);
 
     }
 
@@ -46,14 +46,14 @@ public class MainActivity extends BaseActivtiy {
      */
     private void showFragment(int menu_id) {
         switch (menu_id){
-            case R.id.bottom_menu_garage:
+            case R.id.bottom_menu_sign:
+                FragmentUtils.replaceFragmentToActivity(fragmentManager, SignFragment.getInstance(),R.id.main_frame);
+                break;
+            case R.id.bottom_menu_task:
                 FragmentUtils.replaceFragmentToActivity(fragmentManager, TaskFragment.getInstance(),R.id.main_frame);
                 break;
-            case R.id.bottom_menu_fast:
+            case R.id.bottom_menu_about:
                 FragmentUtils.replaceFragmentToActivity(fragmentManager, AboutFragment.getInstance(),R.id.main_frame);
-                break;
-            case R.id.bottom_menu_navi:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, SignFragment.getInstance(),R.id.main_frame);
                 break;
         }
     }
