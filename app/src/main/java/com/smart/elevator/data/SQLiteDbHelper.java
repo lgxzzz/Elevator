@@ -12,10 +12,12 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
     public static int DB_VERSION = 5;
     //用户表
     public static final String TAB_USER = "UserInfo";
-    //收支表
-    public static final String TAB_BUDGET = "Budget";
-    //收支类型表
-    public static final String TAB_BUDGET_TYPE = "BudgetType";
+    //电梯表
+    public static final String TAB_BUDGET = "Elevator";
+    //电梯参数表
+    public static final String TAB_BUDGET_TYPE = "ElevatorParams";
+    //维护保修工单表
+    public static final String TAB_BUDGET_TYPE = "ElevatorParams";
 
     public SQLiteDbHelper(Context context){
         super(context,DB_NAME,null,DB_VERSION);
