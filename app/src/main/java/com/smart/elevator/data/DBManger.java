@@ -37,20 +37,20 @@ public class DBManger {
     //用户登陆
     public void login(String name,String password,IListener listener){
         try{
-            SQLiteDatabase db = mDBHelper.getWritableDatabase();
-            Cursor cursor = db.rawQuery("select * from UserInfo where UserName =? and Password=?",new String[]{name,password});
-            if (cursor.moveToFirst()){
-                String UserId = cursor.getString(cursor.getColumnIndex("UserId"));
-                String UserName = cursor.getString(cursor.getColumnIndex("UserName"));
-
-                mUser = new User();
-                mUser.setUserId(UserId);
-                mUser.setUserName(UserName);
+//            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+//            Cursor cursor = db.rawQuery("select * from UserInfo where USER_NAME =? and USER_PASSWORD=?",new String[]{name,password});
+//            if (cursor.moveToFirst()){
+//                String USER_NAME = cursor.getString(cursor.getColumnIndex("USER_NAME"));
+//                String USER_PASSWORD = cursor.getString(cursor.getColumnIndex("USER_PASSWORD"));
+//
+//                mUser = new User();
+//                mUser.setUserId(UserId);
+//                mUser.setUserName(UserName);
                 listener.onSuccess();
-            }else{
-                listener.onError("未查询到该用户");
-            }
-            db.close();
+//            }else{
+//                listener.onError("未查询到该用户");
+//            }
+//            db.close();
             return;
         }
         catch (Exception e){
@@ -88,6 +88,8 @@ public class DBManger {
         }
 
     };
+
+    //生成默认的电梯信息和电梯参数
 
     public interface IListener{
         public void onSuccess();

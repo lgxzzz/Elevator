@@ -12,15 +12,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.services.core.PoiItem;
 import com.smart.elevator.R;
 import com.smart.elevator.adapter.TaskAdapter;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.data.DBManger;
+import com.smart.elevator.data.DataFactory;
+import com.smart.elevator.navi.LocationMgr;
+import com.smart.elevator.navi.PoiSearchMgr;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class TaskFragment extends Fragment {
+
 
     List<Task> mTask = new ArrayList<>();
 
@@ -38,7 +46,6 @@ public class TaskFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initAllData();
     }
 
     public static TaskFragment getInstance() {
@@ -47,20 +54,14 @@ public class TaskFragment extends Fragment {
 
     public void initView(View view){
         mTaskListView = view.findViewById(R.id.task_list);
-        Task task = new Task();
-        mTask.add(task);
-        mTask.add(task);
-        mTask.add(task);
-        mTask.add(task);
-        mTask.add(task);
+        mTask = DataFactory.getInstance(getContext()).mTasks;
 
         mTaskAdapter = new TaskAdapter(getContext(),mTask);
         mTaskListView.setAdapter(mTaskAdapter);
     };
 
 
-    public void initAllData(){
 
-    };
+
 
 }
