@@ -1,6 +1,8 @@
 package com.smart.elevator.bean;
 
-public class Elevator {
+import java.io.Serializable;
+
+public class Elevator implements Serializable {
     String LIFT_ID;
     String LIFT_IDCODE;
     String LIFT_USER;

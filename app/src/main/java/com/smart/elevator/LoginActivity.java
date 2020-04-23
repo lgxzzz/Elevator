@@ -1,5 +1,6 @@
 package com.smart.elevator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 import com.smart.elevator.data.DBManger;
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends Activity implements View.OnClickListener{
 
     private TextView mRegisterView;
     private EditText mNameEd;

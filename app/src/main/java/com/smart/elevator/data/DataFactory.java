@@ -63,7 +63,7 @@ public class DataFactory {
                     String LIFT_ID = getRandomLIFT_ID();
                     Elevator elevator = new Elevator();
                     elevator.setLIFT_ID(LIFT_ID);
-                    elevator.setLIFT_ADDRESSID(latLonPoint.toString());
+                    elevator.setLIFT_ADDRESSID(latLonPoint.getLatitude()+","+latLonPoint.getLongitude());
                     elevator.setLIFT_USER(item.getSnippet());
                     mElevators.add(elevator);
                     //生成电梯参数信息

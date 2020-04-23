@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.smart.elevator.ElevatorPlaceActivity;
+import com.smart.elevator.LoginActivity;
+import com.smart.elevator.MainActivity;
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Task;
 
@@ -24,6 +27,8 @@ public class TaskDetailDialog extends Dialog {
     private Context context;
     private Button mSureBtn;
     private Button mCancelBtn;
+    private Button mElePlaceBtn;
+    private Task mTask;
 
     public TaskDetailDialog(Context context, int layoutid, boolean isCancelable, boolean isBackCancelable) {
         super(context, R.style.MyDialog);
@@ -48,13 +53,24 @@ public class TaskDetailDialog extends Dialog {
     }
 
     public void setData(Task task){
-
+        this.mTask = task;
     }
 
     public void initView() {
         mSureBtn = view.findViewById(R.id.fast_navi_sure_btn);
         mCancelBtn = view.findViewById(R.id.fast_navi_cancel_btn);
-
+        mElePlaceBtn = view.findViewById(R.id.elevator_place_btn);
+        mElePlaceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(),ElevatorPlaceActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("task",mTask);
+                intent.putExtras(b);
+                getContext().startActivity(intent);
+            }
+        });
         mSureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

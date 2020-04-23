@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="电梯位置"
+            android:id="@+id/elevator_place_btn"
             />
 
     </LinearLayout>

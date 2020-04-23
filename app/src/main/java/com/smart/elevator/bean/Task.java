@@ -1,6 +1,8 @@
 package com.smart.elevator.bean;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     String LIFT_FORMID;
     String LIFT_ID;
     String LIFT_PROCESSOR;
