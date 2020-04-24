@@ -25,6 +25,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:text="电梯信息"
+            android:id="@+id/elevator_params_btn"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="电梯位置"
             android:id="@+id/elevator_place_btn"
             />

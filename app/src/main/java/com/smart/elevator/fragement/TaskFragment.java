@@ -54,7 +54,7 @@ public class TaskFragment extends Fragment {
 
     public void initView(View view){
         mTaskListView = view.findViewById(R.id.task_list);
-        mTask = DataFactory.getInstance(getContext()).mTasks;
+        mTask = DBManger.getInstance(getContext()).getCurrentTasks();
 
         mTaskAdapter = new TaskAdapter(getContext(),mTask);
         mTaskListView.setAdapter(mTaskAdapter);

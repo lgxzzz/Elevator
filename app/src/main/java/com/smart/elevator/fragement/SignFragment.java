@@ -14,6 +14,7 @@ import com.smart.elevator.adapter.SignAdapter;
 import com.smart.elevator.adapter.TaskAdapter;
 import com.smart.elevator.bean.Sign;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.data.DataFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,22 +42,14 @@ public class SignFragment extends Fragment {
 
     public void initView(View view){
         mSignListView = view.findViewById(R.id.sign_listview);
-        Sign sign = new Sign();
-        mSign.add(sign);
-        mSign.add(sign);
-        mSign.add(sign);
-        mSign.add(sign);
-        mSign.add(sign);
-        mSign.add(sign);
-        mSign.add(sign);
-        mSign.add(sign);
 
-        mSignAdapter = new SignAdapter(getContext(),mSign);
-        mSignListView.setAdapter(mSignAdapter);
     };
 
     public void initData(){
+        mSign = DataFactory.getInstance(getContext()).mRepairSigns;
 
+        mSignAdapter = new SignAdapter(getContext(),mSign);
+        mSignListView.setAdapter(mSignAdapter);
     }
 
     @Override

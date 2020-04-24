@@ -15,7 +15,7 @@ import com.smart.elevator.util.FragmentUtils;
 public class MainActivity extends BaseActivtiy {
 
     private BottomNavigationView mBottomMenu;
-    private DataFactory mDataFactory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivtiy {
     }
 
     public void init(){
-        mDataFactory = new DataFactory(this);
+
 
         mBottomMenu = findViewById(R.id.bottom_menu);
         mBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

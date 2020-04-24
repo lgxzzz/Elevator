@@ -9,19 +9,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smart.elevator.ElevatorPlaceActivity;
 import com.smart.elevator.ElevotorParamsActivity;
-import com.smart.elevator.LoginActivity;
-import com.smart.elevator.MainActivity;
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Task;
 import com.smart.elevator.data.DBManger;
 
 
-public class TaskDetailDialog extends Dialog {
+public class SignDialog extends Dialog {
 
     private boolean iscancelable;//控制点击dialog外部是否dismiss
     private boolean isBackCancelable;//控制返回键是否dismiss
@@ -33,7 +30,7 @@ public class TaskDetailDialog extends Dialog {
     private Button mEleParamBtn;
     private Task mTask;
 
-    public TaskDetailDialog(Context context, int layoutid, boolean isCancelable, boolean isBackCancelable) {
+    public SignDialog(Context context, int layoutid, boolean isCancelable, boolean isBackCancelable) {
         super(context, R.style.MyDialog);
 
         this.context = context;
