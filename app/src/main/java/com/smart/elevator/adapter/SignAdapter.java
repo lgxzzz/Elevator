@@ -1,14 +1,17 @@
 package com.smart.elevator.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Sign;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.view.SignDialog;
 import com.smart.elevator.view.TaskDetailDialog;
 
 import java.util.ArrayList;
@@ -19,10 +22,15 @@ public class SignAdapter extends BaseAdapter {
 
     Context mContext;
     List<Sign> mSign = new ArrayList<>();
-
-    public SignAdapter(Context mContext, List<Sign> mSign){
+    SignDialog mDialog;
+    public SignAdapter(Context mContext){
         this.mContext = mContext;
+        mDialog = new SignDialog(mContext,R.layout.dialog_sign,true,true);
+    }
+
+    public void setData(List<Sign> mSign){
         this.mSign = mSign;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -42,13 +50,42 @@ public class SignAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = LayoutInflater.from(mContext).inflate(R.layout.task_item,null);
+        final Sign sign = this.mSign.get(i);
+        SignAdapter.ViewHoler holer = null;
+        if (view == null){
+            holer = new SignAdapter.ViewHoler();
+            view = LayoutInflater.from(mContext).inflate(R.layout.sign_item,null);
+            holer.mTime = (TextView) view.findViewById(R.id.sign_task_sendtime);
+            holer.mAddress = (TextView) view.findViewById(R.id.sign_address);
+            holer.mState = (TextView) view.findViewById(R.id.sign_state);
+            view.setTag(holer);
+        }else{
+            holer = (SignAdapter.ViewHoler) view.getTag();
+        }
+        Task task = sign.getTask();
+        holer.mTime.setText(task.getLIFT_SENDTIME());
+        holer.mAddress.setText("任务："+task.getElevator().getLIFT_USER());
+        holer.mState.setText("状态："+sign.getState());
+        if (sign.getState().equals("待签到")){
+            holer.mState.setTextColor(Color.GREEN);
+        }else if(sign.getState().equals("已签到")){
+            holer.mState.setTextColor(Color.BLUE);
+        }else{
+            holer.mState.setTextColor(Color.RED);
+        }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
+                mDialog.setData(sign);
+                mDialog.show();
             }
         });
         return view;
+    }
+
+    class ViewHoler{
+        TextView mTime;
+        TextView mAddress;
+        TextView mState;
     }
 }

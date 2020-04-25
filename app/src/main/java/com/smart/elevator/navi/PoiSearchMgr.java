@@ -48,7 +48,7 @@ public class PoiSearchMgr implements PoiSearch.OnPoiSearchListener {
         //第二个参数表示POI搜索类型，二者选填其一，选用POI搜索类型时建议填写类型代码，码表可以参考下方（而非文字）
         //cityCode表示POI搜索区域，可以是城市编码也可以是城市名称，也可以传空字符串，空字符串代表全国在全国范围内进行搜索
         query = new PoiSearch.Query(keyWord, POI_SEARCH_TYPE, "");
-        query.setPageSize(30);// 设置每页最多返回多少条poiItem
+        query.setPageSize(5);// 设置每页最多返回多少条poiItem
         query.setPageNum(currentPage);// 设置查第一页
         if (latLonPoint != null) {
             poiSearch = new PoiSearch(mContext, query);

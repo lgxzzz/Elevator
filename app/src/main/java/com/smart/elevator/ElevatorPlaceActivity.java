@@ -1,5 +1,6 @@
 package com.smart.elevator;
 
+import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ElevatorPlaceActivity extends AppCompatActivity{
+public class ElevatorPlaceActivity extends Activity{
     private MapView mMapView = null;
     private AMap mAMap;
     private TitleView mTitleView;
@@ -55,8 +56,8 @@ public class ElevatorPlaceActivity extends AppCompatActivity{
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
         mAMap = mMapView.getMap();
-        mUiSettings = mAMap.getUiSettings();
-        mUiSettings.setZoomControlsEnabled(false); //隐藏缩放控件
+//        mUiSettings = mAMap.getUiSettings();
+//        mUiSettings.setZoomControlsEnabled(false); //隐藏缩放控件
         mTitleView = findViewById(R.id.title_view);
         mTitleView.setTitle("电梯位置");
         mTitleView.setOnBackListener(new View.OnClickListener() {
@@ -70,11 +71,11 @@ public class ElevatorPlaceActivity extends AppCompatActivity{
 
     public void initData(){
         Task mTask = (Task) getIntent().getExtras().getSerializable("task");
-        Elevator elevator = mTask.getElevator();
-        String address = elevator.getLIFT_ADDRESSID();
+         mElevator = mTask.getElevator();
+        String address = mElevator.getLIFT_ADDRESSID();
         String[] params= address.split(",");
-        double lat = Double.parseDouble(params[0]);
-        double lon = Double.parseDouble(params[1]);
+        double lat = Double.parseDouble(params[1]);
+        double lon = Double.parseDouble(params[0]);
         addmark(lat,lon);
     };
 
@@ -101,8 +102,8 @@ public class ElevatorPlaceActivity extends AppCompatActivity{
     public void showInfoWindow(){
         LatLng mPosition = mLocationMarker.getPosition();
         mAdapter = new EleInfoWindowAdapter(this);
-        mAdapter.setElevator(mElevator);
         mAMap.setInfoWindowAdapter(mAdapter);
+        mAdapter.setElevator(mElevator);
     }
 
 }

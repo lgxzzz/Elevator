@@ -7,8 +7,16 @@ public class User {
     private String RepeatPassword;
     private String Sex;
     private String Telephone;
+    private String Mail;
     private String UserPhoto;
 
+    public String getMail() {
+        return Mail;
+    }
+
+    public void setMail(String mail) {
+        Mail = mail;
+    }
 
     public String getRepeatPassword() {
         return RepeatPassword;

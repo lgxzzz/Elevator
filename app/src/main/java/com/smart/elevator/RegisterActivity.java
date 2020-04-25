@@ -21,9 +21,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mNameEd;
     private EditText mPassWordEd;
     private EditText mRepeatPassWordEd;
-    private RadioGroup mSexRg;
-    private EditText mIDEd;
-    private EditText mConnectEd;
+    private EditText mTelEd;
+    private EditText mMailEd;
     private Button mRegBtn;
 
     private User mUser;
@@ -43,10 +42,9 @@ public class RegisterActivity extends AppCompatActivity {
         mNameEd = findViewById(R.id.reg_name_ed);
         mPassWordEd = findViewById(R.id.reg_password_ed);
         mRepeatPassWordEd = findViewById(R.id.reg_repeat_password_ed);
-        mIDEd = findViewById(R.id.reg_ID_ed);
-        mConnectEd = findViewById(R.id.reg_connect_ed);
+        mTelEd = findViewById(R.id.reg_phone_ed);
+        mMailEd = findViewById(R.id.reg_mail_ed);
         mRegBtn = findViewById(R.id.reg_btn);
-        mSexRg = findViewById(R.id.reg_sex_rg);
 
         mNameEd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -99,41 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        mIDEd.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        mSexRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                String sex= "男";
-                switch(i){
-                    case R.id.reg_sex_women:
-                        sex = "女";
-                    break;
-                    default:
-
-                    break;
-                }
-                mUser.setSex(sex);
-            }
-        });
-        mUser.setSex("男");
-
-        mConnectEd.addTextChangedListener(new TextWatcher() {
+        mTelEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -147,6 +111,24 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 mUser.setTelephone(editable.toString());
+            }
+        });
+
+
+        mMailEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mUser.setMail(editable.toString());
             }
         });
 

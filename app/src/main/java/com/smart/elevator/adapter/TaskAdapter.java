@@ -1,6 +1,7 @@
 package com.smart.elevator.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,14 @@ public class TaskAdapter extends BaseAdapter {
     Context mContext;
     List<Task> mTask = new ArrayList<>();
     TaskDetailDialog mDialog;
-    public TaskAdapter(Context mContext, List<Task> mTask){
+    public TaskAdapter(Context mContext){
         this.mContext = mContext;
-        this.mTask = mTask;
         mDialog = new TaskDetailDialog(mContext,R.layout.dialog_task_detail,true,true);
+    }
+
+    public void setData(List<Task> mTask){
+        this.mTask = mTask;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -59,6 +64,17 @@ public class TaskAdapter extends BaseAdapter {
         holer.mTime.setText(task.getLIFT_SENDTIME());
         holer.mAddress.setText("任务："+task.getElevator().getLIFT_USER());
         holer.mState.setText("状态："+task.getLIFT_CURRENTSTATE());
+        if (task.getLIFT_CURRENTSTATE().equals("待接受")){
+            holer.mState.setTextColor(Color.GREEN);
+        } else  if (task.getLIFT_CURRENTSTATE().equals("已接受待签到")){
+            holer.mState.setTextColor(Color.BLUE);
+        } else  if (task.getLIFT_CURRENTSTATE().equals("已签到")){
+            holer.mState.setTextColor(Color.BLUE);
+        } else  if (task.getLIFT_CURRENTSTATE().equals("已完成")){
+            holer.mState.setTextColor(Color.BLACK);
+        } else{
+            holer.mState.setTextColor(Color.RED);
+        }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

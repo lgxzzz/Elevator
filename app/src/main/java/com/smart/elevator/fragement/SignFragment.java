@@ -1,5 +1,9 @@
 package com.smart.elevator.fragement;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +18,8 @@ import com.smart.elevator.adapter.SignAdapter;
 import com.smart.elevator.adapter.TaskAdapter;
 import com.smart.elevator.bean.Sign;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.constant.Constant;
+import com.smart.elevator.data.DBManger;
 import com.smart.elevator.data.DataFactory;
 
 import java.util.ArrayList;
@@ -32,7 +38,7 @@ public class SignFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragement_sign, container, false);
         initView(view);
-
+        registerBroadcast();
         return view;
     }
 
@@ -43,18 +49,34 @@ public class SignFragment extends Fragment {
     public void initView(View view){
         mSignListView = view.findViewById(R.id.sign_listview);
 
+        mSignAdapter = new SignAdapter(getContext());
+        mSignListView.setAdapter(mSignAdapter);
     };
 
     public void initData(){
-        mSign = DataFactory.getInstance(getContext()).mRepairSigns;
-
-        mSignAdapter = new SignAdapter(getContext(),mSign);
-        mSignListView.setAdapter(mSignAdapter);
+        mSign = DBManger.getInstance(getContext()).getAllRepairSign();
+        mSignAdapter.setData(mSign);
     }
+
+
 
     @Override
     public void onResume() {
         super.onResume();
         initData();
+    }
+
+    public void registerBroadcast(){
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constant.INTENT_REFRESH_DATA);
+        getContext().registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (action.equals(Constant.INTENT_REFRESH_DATA)){
+                    initData();
+                }
+            }
+        },filter);
     }
 }

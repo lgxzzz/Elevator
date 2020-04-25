@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.smart.elevator.MainActivity;
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Task;
 import com.smart.elevator.data.DBManger;
+import com.smart.elevator.util.NotifyState;
 
 
 public class TaskDetailDialog extends Dialog {
@@ -31,6 +33,13 @@ public class TaskDetailDialog extends Dialog {
     private Button mCancelBtn;
     private Button mElePlaceBtn;
     private Button mEleParamBtn;
+    private TextView mTaskId;
+    private TextView mEleId;
+    private TextView mFaulteTimeId;
+    private TextView mSendTimeId;
+    private TextView mState;
+    private TextView mFault;
+    private LinearLayout mAceeptLayout;
     private Task mTask;
 
     public TaskDetailDialog(Context context, int layoutid, boolean isCancelable, boolean isBackCancelable) {
@@ -57,9 +66,59 @@ public class TaskDetailDialog extends Dialog {
 
     public void setData(Task task){
         this.mTask = task;
+
+        mTaskId.setText(mTask.getLIFT_FORMID());
+        mEleId.setText(mTask.getElevator().getLIFT_ID());
+        mFaulteTimeId.setText(mTask.getLIFT_FAIULTTIME());
+        mSendTimeId.setText(mTask.getLIFT_SENDTIME());
+        mState.setText(mTask.getLIFT_CURRENTSTATE());
+        mFault.setText(mTask.getLIFT_FAULTTYPE());
+        if (task.getLIFT_CURRENTSTATE().equals("已超时")){
+            mAceeptLayout.setVisibility(View.GONE);
+        }else if(task.getLIFT_CURRENTSTATE().equals("已签到")){
+            mSureBtn.setText("提交");
+            mSureBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    mTask.setLIFT_CURRENTSTATE("已完成");
+                    DBManger.getInstance(getContext()).updateTaskFinish(mTask);
+                    Toast.makeText(getContext(),"提交任务成功！",Toast.LENGTH_LONG).show();
+                    //通知刷新数据
+                    NotifyState.notifyRefreshData(getContext());
+                }
+            });
+        }else if(task.getLIFT_CURRENTSTATE().equals("已完成")){
+            mAceeptLayout.setVisibility(View.GONE);
+        }else if(task.getLIFT_CURRENTSTATE().equals("已接受待签到")){
+            mAceeptLayout.setVisibility(View.GONE);
+        }else{
+            mSureBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                    mTask.setLIFT_CURRENTSTATE("已接受待签到");
+                    DBManger.getInstance(getContext()).insertRepairSign(mTask);
+                    Toast.makeText(getContext(),"接受任务成功！",Toast.LENGTH_LONG).show();
+                    //通知刷新数据
+                    NotifyState.notifyRefreshData(getContext());
+                }
+            });
+        }
     }
 
     public void initView() {
+
+        mTaskId = view.findViewById(R.id.task_id_tv);
+        mEleId = view.findViewById(R.id.ele_id_tv);
+        mFaulteTimeId = view.findViewById(R.id.faulttime_tv);
+        mSendTimeId = view.findViewById(R.id.sendtime_tv);
+        mState = view.findViewById(R.id.task_state);
+        mFault = view.findViewById(R.id.task_fault);
+        mAceeptLayout = view.findViewById(R.id.task_acept_layout);
+
+
+
         mSureBtn = view.findViewById(R.id.fast_navi_sure_btn);
         mCancelBtn = view.findViewById(R.id.fast_navi_cancel_btn);
         mElePlaceBtn = view.findViewById(R.id.elevator_place_btn);
@@ -88,14 +147,7 @@ public class TaskDetailDialog extends Dialog {
                 dismiss();
             }
         });
-        mSureBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                DBManger.getInstance(getContext()).insertRepairSign(mTask);
-                Toast.makeText(getContext(),"接受任务成功！",Toast.LENGTH_LONG).show();
-            }
-        });
+
 
         mCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,5 +156,6 @@ public class TaskDetailDialog extends Dialog {
             }
         });
     }
+
 
 }

@@ -12,6 +12,18 @@
         android:text="维保签到"
         >
     </Button>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="维修任务"
+        android:layout_margin="10dp"
+        />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

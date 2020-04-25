@@ -94,49 +94,7 @@
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="性别:"
-            android:layout_marginLeft="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="25dp"
-
-            >
-
-        </TextView>
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/reg_sex_rg"
-            >
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="男"
-                android:textSize="25dp"
-                android:id="@+id/reg_sex_man"
-                />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:text="女"
-                android:textSize="25dp"
-                android:id="@+id/reg_sex_women"
-                />
-        </RadioGroup>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="身份证号:"
+            android:text="手机号:"
             android:layout_marginLeft="5dp"
             android:textColor="@android:color/black"
             android:textSize="25dp"
@@ -148,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/reg_ID_ed"
+            android:id="@+id/reg_phone_ed"
             >
 
         </EditText>
@@ -162,7 +120,7 @@
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="联系方式:"
+            android:text="邮箱:"
             android:layout_marginLeft="5dp"
             android:textColor="@android:color/black"
             android:textSize="25dp"
@@ -174,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/reg_connect_ed"
+            android:id="@+id/reg_mail_ed"
             >
 
         </EditText>

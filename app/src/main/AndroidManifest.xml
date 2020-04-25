@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         >
         <meta-data android:name="com.amap.api.v2.apikey" android:value="8a6bc6010f8adc089fe82d8bec715b30">
         </meta-data>
@@ -37,6 +38,7 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".ElevatorPlaceActivity"/>
         <activity android:name=".ElevotorParamsActivity"/>
+        <activity android:name=".TaskActivity"/>
         <service android:name="com.amap.api.location.APSService"></service>
         <activity android:name="com.amap.api.navi.AmapRouteActivity"
             android:theme="@android:style/Theme.NoTitleBar"

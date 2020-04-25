@@ -1,10 +1,15 @@
 package com.smart.elevator;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 
+import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DataFactory;
 import com.smart.elevator.fragement.AboutFragment;
 import com.smart.elevator.fragement.SignFragment;
@@ -60,4 +65,5 @@ public class MainActivity extends BaseActivtiy {
                 break;
         }
     }
+
 }

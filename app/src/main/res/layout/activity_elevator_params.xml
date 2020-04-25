@@ -33,7 +33,7 @@
                     android:text="电梯 ID:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -59,7 +59,7 @@
                     android:text="额定载重量:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -85,7 +85,7 @@
                     android:text="额定速度:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -111,7 +111,7 @@
                     android:text="轿厢宽度:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -137,7 +137,7 @@
                     android:text="轿厢高度:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -163,7 +163,7 @@
                     android:text="电梯电压:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -189,7 +189,7 @@
                     android:text="电梯电流:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -215,7 +215,7 @@
                     android:text="曳引机型号:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -241,7 +241,7 @@
                     android:text="曳引机最大功率:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -267,7 +267,7 @@
                     android:text="曳引比:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -293,7 +293,7 @@
                     android:text="曳引机类型:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -319,7 +319,7 @@
                     android:text="缓冲器类型:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -345,7 +345,7 @@
                     android:text="安全齿轮类型:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -371,7 +371,7 @@
                     android:text="曳引机编号:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -397,7 +397,7 @@
                     android:text="曳引绳根数:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>
@@ -423,7 +423,7 @@
                     android:text="电动机型号:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     >
 
                 </TextView>

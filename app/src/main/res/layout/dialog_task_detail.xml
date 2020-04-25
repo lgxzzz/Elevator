@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="任务详情"
-            android:textSize="25dp"
+            android:textSize="20dp"
             />
         <Button
             android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/task_id"
+            android:id="@+id/task_id_tv"
             android:text="T645s4dfsf"
             />
 
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/ele_id"
+            android:id="@+id/ele_id_tv"
             />
 
     </LinearLayout>
@@ -112,7 +112,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/uptime_id"
+            android:id="@+id/faulttime_tv"
+            android:textSize="10dp"
             />
 
     </LinearLayout>
@@ -138,7 +139,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/down_task_id"
+            android:id="@+id/sendtime_tv"
+            android:textSize="10dp"
             />
 
     </LinearLayout>
@@ -164,7 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/tast_type"
+            android:id="@+id/task_state"
             />
 
     </LinearLayout>
@@ -190,43 +192,51 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:id="@+id/error_code"
+            android:id="@+id/task_fault"
             />
 
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="是否接受任务？"
-        android:textSize="25dp"
-        />
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:id="@+id/task_acept_layout"
+        android:orientation="vertical"
         >
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="@android:color/black"
-            android:text="接受"
+            android:text="是否接受任务？"
             android:textSize="25dp"
-            android:id="@+id/fast_navi_sure_btn"
             />
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="@android:color/black"
-            android:text="取消"
-            android:textSize="25dp"
-            android:id="@+id/fast_navi_cancel_btn"
-            />
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            >
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/black"
+                android:text="接受"
+                android:textSize="25dp"
+                android:id="@+id/fast_navi_sure_btn"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/black"
+                android:text="取消"
+                android:textSize="25dp"
+                android:id="@+id/fast_navi_cancel_btn"
+                />
+        </LinearLayout>
     </LinearLayout>
+
 
 </LinearLayout>
