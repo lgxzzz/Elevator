@@ -8,7 +8,16 @@ public class User {
     private String Sex;
     private String Telephone;
     private String Mail;
+    private String Role;
     private String UserPhoto;
+
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String role) {
+        Role = role;
+    }
 
     public String getMail() {
         return Mail;

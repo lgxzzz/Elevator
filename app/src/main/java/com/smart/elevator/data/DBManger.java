@@ -106,7 +106,7 @@ public class DBManger {
                 values.put("USER_PASSWORD",user.getPassword());
                 values.put("LIFT_PROCESSORPHONE",user.getTelephone());
                 values.put("USER_MAIL",user.getMail());
-                values.put("USER_CHARCTER","人员");
+                values.put("USER_CHARCTER",user.getRole());
                 mUser = user;
                 mUser.setUserId(userid);
                 long code = db.insert(SQLiteDbHelper.TAB_USER,null,values);

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.smart.elevator.util.SharedPreferenceUtil;
+
 public class SQLiteDbHelper extends SQLiteOpenHelper {
 
     //数据库名称
@@ -21,8 +23,10 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
     //签到表
     public static final String TAB_SIGN = "Sign";
 
+    Context context;
     public SQLiteDbHelper(Context context){
         super(context,DB_NAME,null,DB_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -37,6 +41,7 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        SharedPreferenceUtil.setFirstTimeUse(true,context);
         db.execSQL("DROP TABLE IF EXISTS "+TAB_USER);
         db.execSQL("DROP TABLE IF EXISTS "+TAB_ELEVATOR);
         db.execSQL("DROP TABLE IF EXISTS "+TAB_ELEVATOR_PARAMS);

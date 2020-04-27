@@ -6,14 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.smart.elevator.bean.User;
 import com.smart.elevator.data.DBManger;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -23,8 +29,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mRepeatPassWordEd;
     private EditText mTelEd;
     private EditText mMailEd;
+    private Spinner mRoleSp;
     private Button mRegBtn;
-
+    private String mSelectRole="";
     private User mUser;
 
     @Override
@@ -45,6 +52,28 @@ public class RegisterActivity extends AppCompatActivity {
         mTelEd = findViewById(R.id.reg_phone_ed);
         mMailEd = findViewById(R.id.reg_mail_ed);
         mRegBtn = findViewById(R.id.reg_btn);
+        mRoleSp = findViewById(R.id.user_role);
+
+        final List<String> mRoles =new ArrayList<>();
+        mRoles.add("维保人员");
+        mRoles.add("维保接待员");
+        mRoles.add("维保系统管理员");
+
+        SpinnerAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mRoles);
+        mRoleSp.setAdapter(adapter);
+        mSelectRole = mRoles.get(0);
+
+        mRoleSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSelectRole = mRoles.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         mNameEd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -151,6 +180,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"两次密码不一致！",Toast.LENGTH_LONG).show();
                     return;
                 }
+                mUser.setRole(mSelectRole);
                 DBManger.getInstance(RegisterActivity.this).registerUser(mUser, new DBManger.IListener() {
                     @Override
                     public void onSuccess() {

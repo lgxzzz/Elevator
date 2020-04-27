@@ -16,11 +16,33 @@
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_menu"
-        app:menu="@menu/bottom_menu"
+        android:id="@+id/sys_person_bottom_menu"
+        app:menu="@menu/sys_person_bottom_menu"
         app:itemTextColor="@color/seletor_bottom_navi"
         app:itemIconTint="@color/seletor_bottom_navi"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:layout_height="60dp"
+        android:visibility="gone"
+        />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/recept_person_bottom_menu"
+        app:menu="@menu/recept_person_bottom_menu"
+        app:itemTextColor="@color/seletor_bottom_navi"
+        app:itemIconTint="@color/seletor_bottom_navi"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/repair_person_bottom_menu"
+        app:menu="@menu/repair_person_bottom_menu"
+        app:itemTextColor="@color/seletor_bottom_navi"
+        app:itemIconTint="@color/seletor_bottom_navi"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        />
 </LinearLayout>

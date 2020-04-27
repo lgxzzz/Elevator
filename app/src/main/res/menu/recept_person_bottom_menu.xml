@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/bottom_menu_report"
+        android:icon="@drawable/sign"
+        android:title="报修"
+        />
+    <item android:id="@+id/bottom_menu_make_task"
+        android:icon="@drawable/task"
+        android:title="任务"
+        />
+    <item android:id="@+id/bottom_menu_plan"
+        android:icon="@drawable/about"
+        android:title="计划"
+        />
+</menu>
