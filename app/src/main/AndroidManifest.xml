@@ -38,6 +38,7 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".ElevatorPlaceActivity"/>
         <activity android:name=".ElevotorParamsActivity"/>
+        <activity android:name=".ElevatorOperateActivity"/>
         <activity android:name=".TaskActivity"/>
         <service android:name="com.amap.api.location.APSService"></service>
         <activity android:name="com.amap.api.navi.AmapRouteActivity"

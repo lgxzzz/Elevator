@@ -53,8 +53,8 @@ public class ElevotarMgrFragment extends Fragment {
     };
 
     public void initData(){
-//        mSign = DBManger.getInstance(getContext()).getAllRepairSign();
-//        mEleAdapter.setData(mSign);
+        mElevators = DBManger.getInstance(getContext()).getAllElevators();
+        mEleAdapter.setData(mElevators);
     }
 
 

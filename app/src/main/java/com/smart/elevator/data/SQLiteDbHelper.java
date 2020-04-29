@@ -78,7 +78,7 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
 
     //创建电梯参数表
     public void createTableElevatorParams(SQLiteDatabase db){
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+TAB_ELEVATOR +
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+TAB_ELEVATOR_PARAMS +
                 "(LIFT_ID varchar(20) primary key, " +
                 "LIFT_RATEDLOAD varchar(20), " +
                 "LIFT_RATEDSPEED varchar(20), " +

@@ -86,6 +86,7 @@ public class DataFactory {
                     elevator.setLIFT_PRODUCTDATE(getProduceTime());//制造日期
                     mElevators.put(LIFT_ID,elevator);
 
+
                     //生成电梯参数信息
                     ElevatorParams elevatorParams = new ElevatorParams();
                     elevatorParams.setLIFT_ID(LIFT_ID);//电梯id
@@ -119,6 +120,10 @@ public class DataFactory {
                     task.setLIFT_CURRENTSTATE("待接受");//当前状态
                     task.setLIFT_FAULTTYPE(getRandomFaultType());//故障类型
                     mTasks.put(LIFT_FORMID,task);
+                }
+
+                if (mlistener!=null){
+                    mlistener.onGetDefaultElevators(mElevators,mElevatorParams);
                 }
 
                 NotifyState.notifyRefreshData(mContext);
@@ -211,5 +216,15 @@ public class DataFactory {
         sign.setTask(task);
         sign.setType("维修签到");
         mRepairSigns.put(task.getLIFT_FORMID(),sign);
+    }
+
+    public IListener mlistener;
+
+    public void setMlistener(IListener mlistener) {
+        this.mlistener = mlistener;
+    }
+
+    public interface IListener{
+        public void onGetDefaultElevators(HashMap<String,Elevator> mElevators,HashMap<String,ElevatorParams> mElevatorParams);
     }
 }
