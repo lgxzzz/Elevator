@@ -45,22 +45,7 @@ public class MainActivity extends BaseActivtiy {
         mSysPersonBottomMenu = findViewById(R.id.sys_person_bottom_menu);
         mReceptPersonBottomMenu = findViewById(R.id.recept_person_bottom_menu);
         mRepairPersonBottomMenu = findViewById(R.id.repair_person_bottom_menu);
-        if (mUser!=null){
-            String role = mUser.getRole();
-            if (role.equals("维保人员")){
-                mSysPersonBottomMenu.setVisibility(View.GONE);
-                mReceptPersonBottomMenu.setVisibility(View.GONE);
-                mRepairPersonBottomMenu.setVisibility(View.VISIBLE);
-            }else if(role.equals("维保接待员")){
-                mSysPersonBottomMenu.setVisibility(View.GONE);
-                mReceptPersonBottomMenu.setVisibility(View.VISIBLE);
-                mRepairPersonBottomMenu.setVisibility(View.GONE);
-            }else if(role.equals("维保系统管理员")){
-                mSysPersonBottomMenu.setVisibility(View.VISIBLE);
-                mReceptPersonBottomMenu.setVisibility(View.GONE);
-                mRepairPersonBottomMenu.setVisibility(View.GONE);
-            }
-        }
+
 
         mSysPersonBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -69,7 +54,7 @@ public class MainActivity extends BaseActivtiy {
                 return true;
             }
         });
-        mSysPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_elevotar);
+
 
         mReceptPersonBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -78,7 +63,7 @@ public class MainActivity extends BaseActivtiy {
                 return true;
             }
         });
-        mReceptPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_report);
+
 
         mRepairPersonBottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -87,8 +72,26 @@ public class MainActivity extends BaseActivtiy {
                 return true;
             }
         });
-        mRepairPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_task);
 
+        if (mUser!=null){
+            String role = mUser.getRole();
+            if (role.equals("维保人员")){
+                mSysPersonBottomMenu.setVisibility(View.GONE);
+                mReceptPersonBottomMenu.setVisibility(View.GONE);
+                mRepairPersonBottomMenu.setVisibility(View.VISIBLE);
+                mRepairPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_task);
+            }else if(role.equals("维保接待员")){
+                mSysPersonBottomMenu.setVisibility(View.GONE);
+                mReceptPersonBottomMenu.setVisibility(View.VISIBLE);
+                mRepairPersonBottomMenu.setVisibility(View.GONE);
+                mReceptPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_report);
+            }else if(role.equals("维保系统管理员")){
+                mSysPersonBottomMenu.setVisibility(View.VISIBLE);
+                mReceptPersonBottomMenu.setVisibility(View.GONE);
+                mRepairPersonBottomMenu.setVisibility(View.GONE);
+                mSysPersonBottomMenu.setSelectedItemId(R.id.bottom_menu_elevotar);
+            }
+        }
     }
 
 

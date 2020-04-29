@@ -58,6 +58,7 @@ public class DBManger {
                         ElevatorParams elevatorParams = entry.getValue();
                         insertElevatorParams(elevatorParams);
                     }
+                    SharedPreferenceUtil.setFirstTimeUse(false,mContext);
                 }
             }
         });
