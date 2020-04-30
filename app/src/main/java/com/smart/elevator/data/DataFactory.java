@@ -11,6 +11,7 @@ import com.smart.elevator.bean.Elevator;
 import com.smart.elevator.bean.ElevatorParams;
 import com.smart.elevator.bean.Sign;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.constant.Constant;
 import com.smart.elevator.navi.LocationMgr;
 import com.smart.elevator.navi.PoiSearchMgr;
 import com.smart.elevator.util.NotifyState;
@@ -117,13 +118,13 @@ public class DataFactory {
                     task.setLIFT_FAIULTTIME(getSendTime());//报修时间
                     task.setLIFT_SENDTIME(getSendTime());//派单时间
                     task.setLIFT_PROCESSORPHONE("");//维保人电话
-                    task.setLIFT_CURRENTSTATE("待接受");//当前状态
+                    task.setLIFT_CURRENTSTATE(Constant.TASK_STATE_REPORT);//当前状态
                     task.setLIFT_FAULTTYPE(getRandomFaultType());//故障类型
                     mTasks.put(LIFT_FORMID,task);
                 }
 
                 if (mlistener!=null){
-                    mlistener.onGetDefaultElevators(mElevators,mElevatorParams);
+                    mlistener.onGetDefaultElevators(mElevators,mElevatorParams,mTasks);
                 }
 
                 NotifyState.notifyRefreshData(mContext);
@@ -225,6 +226,6 @@ public class DataFactory {
     }
 
     public interface IListener{
-        public void onGetDefaultElevators(HashMap<String,Elevator> mElevators,HashMap<String,ElevatorParams> mElevatorParams);
+        public void onGetDefaultElevators(HashMap<String,Elevator> mElevators,HashMap<String,ElevatorParams> mElevatorParams,HashMap<String,Task> mTasks);
     }
 }

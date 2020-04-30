@@ -11,16 +11,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.smart.elevator.ElevatorOperateActivity;
-import com.smart.elevator.ElevatorParamsOperateActivity;
 import com.smart.elevator.R;
-import com.smart.elevator.adapter.ElevatorParamsAdapter;
-import com.smart.elevator.adapter.SignAdapter;
-import com.smart.elevator.bean.ElevatorParams;
-import com.smart.elevator.bean.Sign;
+import com.smart.elevator.adapter.TaskAdapter;
+import com.smart.elevator.bean.Task;
 import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DBManger;
 
@@ -28,37 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ElevotarParamsMgrFragment extends Fragment {
+public class ReportFragment extends Fragment {
 
-    List<ElevatorParams> mEleParams = new ArrayList<>();
 
-    ListView mListView;
+    List<Task> mTask = new ArrayList<>();
 
-    ElevatorParamsAdapter mAdapter;
+    ListView mTaskListView;
+
+    TaskAdapter mTaskAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragement_elevator_params, container, false);
+        View view =  inflater.inflate(R.layout.fragement_task, container, false);
         initView(view);
         registerBroadcast();
         return view;
-    }
-
-    public static ElevotarParamsMgrFragment getInstance() {
-        return new ElevotarParamsMgrFragment();
-    }
-
-    public void initView(View view){
-        mListView = view.findViewById(R.id.ele_params_list);
-
-        mAdapter = new ElevatorParamsAdapter(getContext());
-        mListView.setAdapter(mAdapter);
-
-    };
-
-    public void initData(){
-        mEleParams = DBManger.getInstance(getContext()).getAllElevatorsParams();
-        mAdapter.setData(mEleParams);
     }
 
     @Override
@@ -66,6 +45,22 @@ public class ElevotarParamsMgrFragment extends Fragment {
         super.onResume();
         initData();
     }
+
+    public static ReportFragment getInstance() {
+        return new ReportFragment();
+    }
+
+    public void initView(View view){
+        mTaskListView = view.findViewById(R.id.task_list);
+        mTaskAdapter = new TaskAdapter(getContext());
+        mTaskListView.setAdapter(mTaskAdapter);
+    };
+
+    public void initData(){
+        mTask = DBManger.getInstance(getContext()).getTaskByState(Constant.TASK_STATE_REPORT);
+        mTaskAdapter.setData(mTask);
+    }
+
 
     public void registerBroadcast(){
         IntentFilter filter = new IntentFilter();
@@ -80,4 +75,7 @@ public class ElevotarParamsMgrFragment extends Fragment {
             }
         },filter);
     }
+
+
+
 }

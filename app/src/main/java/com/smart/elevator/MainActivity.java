@@ -1,10 +1,5 @@
 package com.smart.elevator;
 
-import android.app.Person;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,13 +7,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.smart.elevator.bean.User;
-import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DBManger;
-import com.smart.elevator.data.DataFactory;
 import com.smart.elevator.fragement.AboutFragment;
 import com.smart.elevator.fragement.ElevotarMgrFragment;
 import com.smart.elevator.fragement.ElevotarParamsMgrFragment;
+import com.smart.elevator.fragement.OperateTaskFragment;
 import com.smart.elevator.fragement.PersonMgrFragment;
+import com.smart.elevator.fragement.PlanFragment;
+import com.smart.elevator.fragement.ReportFragment;
 import com.smart.elevator.fragement.SignFragment;
 import com.smart.elevator.fragement.TaskFragment;
 import com.smart.elevator.util.FragmentUtils;
@@ -120,13 +116,13 @@ public class MainActivity extends BaseActivtiy {
                 FragmentUtils.replaceFragmentToActivity(fragmentManager, PersonMgrFragment.getInstance(),R.id.main_frame);
                 break;
             case R.id.bottom_menu_report:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, AboutFragment.getInstance(),R.id.main_frame);
+                FragmentUtils.replaceFragmentToActivity(fragmentManager, ReportFragment.getInstance(),R.id.main_frame);
                 break;
-            case R.id.bottom_menu_make_task:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, AboutFragment.getInstance(),R.id.main_frame);
+            case R.id.bottom_menu_operate_task:
+                FragmentUtils.replaceFragmentToActivity(fragmentManager, OperateTaskFragment.getInstance(),R.id.main_frame);
                 break;
             case R.id.bottom_menu_plan:
-                FragmentUtils.replaceFragmentToActivity(fragmentManager, AboutFragment.getInstance(),R.id.main_frame);
+                FragmentUtils.replaceFragmentToActivity(fragmentManager, PlanFragment.getInstance(),R.id.main_frame);
                 break;
         }
     }

@@ -11,11 +11,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.smart.elevator.PersonOperateActivity;
 import com.smart.elevator.R;
-import com.smart.elevator.adapter.SignAdapter;
-import com.smart.elevator.bean.Sign;
+import com.smart.elevator.adapter.UserAdapter;
+import com.smart.elevator.bean.User;
 import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DBManger;
 
@@ -25,15 +27,17 @@ import java.util.List;
 
 public class PersonMgrFragment extends Fragment {
 
-    List<Sign> mSign = new ArrayList<>();
+    List<User> mUsers = new ArrayList<>();
 
-    ListView mSignListView;
+    ListView mListView;
 
-    SignAdapter mSignAdapter;
+    UserAdapter mAdapter;
+
+    Button mAddBtn;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragement_sign, container, false);
+        View view =  inflater.inflate(R.layout.fragement_person, container, false);
         initView(view);
         registerBroadcast();
         return view;
@@ -44,18 +48,28 @@ public class PersonMgrFragment extends Fragment {
     }
 
     public void initView(View view){
-        mSignListView = view.findViewById(R.id.sign_listview);
+        mListView = view.findViewById(R.id.user_list);
 
-        mSignAdapter = new SignAdapter(getContext());
-        mSignListView.setAdapter(mSignAdapter);
+        mAdapter = new UserAdapter(getContext());
+        mListView.setAdapter(mAdapter);
+        mAddBtn = view.findViewById(R.id.add_ele_btn);
+        mAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), PersonOperateActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("opt","add");
+                intent.putExtras(b);
+                getContext().startActivity(intent);
+            }
+        });
     };
 
     public void initData(){
-        mSign = DBManger.getInstance(getContext()).getAllRepairSign();
-        mSignAdapter.setData(mSign);
+        mUsers = DBManger.getInstance(getContext()).getAllUsers();
+        mAdapter.setData(mUsers);
     }
-
-
 
     @Override
     public void onResume() {

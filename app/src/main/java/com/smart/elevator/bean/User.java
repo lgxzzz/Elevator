@@ -1,6 +1,8 @@
 package com.smart.elevator.bean;
 
-public class User {
+import java.io.Serializable;
+
+public class User  implements Serializable {
     private String UserId;
     private String UserName;
     private String Password;

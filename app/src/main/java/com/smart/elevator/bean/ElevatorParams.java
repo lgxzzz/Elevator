@@ -1,6 +1,8 @@
 package com.smart.elevator.bean;
 
-public class ElevatorParams {
+import java.io.Serializable;
+
+public class ElevatorParams  implements Serializable {
      String LIFT_ID;
      String LIFT_RATEDLOAD;
      String LIFT_RATEDSPEED;

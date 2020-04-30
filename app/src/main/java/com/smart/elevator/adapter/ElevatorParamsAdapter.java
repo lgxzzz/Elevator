@@ -2,7 +2,6 @@ package com.smart.elevator.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,27 +10,28 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.smart.elevator.ElevatorOperateActivity;
+import com.smart.elevator.ElevatorParamsOperateActivity;
 import com.smart.elevator.ElevotorParamsActivity;
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Elevator;
-import com.smart.elevator.bean.Task;
+import com.smart.elevator.bean.ElevatorParams;
 import com.smart.elevator.view.TaskDetailDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ElevatorAdapter extends BaseAdapter {
+public class ElevatorParamsAdapter extends BaseAdapter {
 
     Context mContext;
-    List<Elevator> mList = new ArrayList<>();
+    List<ElevatorParams> mList = new ArrayList<>();
     TaskDetailDialog mDialog;
-    public ElevatorAdapter(Context mContext){
+    public ElevatorParamsAdapter(Context mContext){
         this.mContext = mContext;
         mDialog = new TaskDetailDialog(mContext,R.layout.dialog_task_detail,true,true);
     }
 
-    public void setData(List<Elevator> mList){
+    public void setData(List<ElevatorParams> mList){
         this.mList = mList;
         notifyDataSetChanged();
     }
@@ -53,27 +53,24 @@ public class ElevatorAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        final Elevator elevator = this.mList.get(i);
+        final ElevatorParams elevatorParams = this.mList.get(i);
         ViewHoler holer = null;
         if (view == null){
             holer = new ViewHoler();
             view = LayoutInflater.from(mContext).inflate(R.layout.elevator_item,null);
             holer.mEleID = (TextView) view.findViewById(R.id.ele_id);
-            holer.mEleAddress = (TextView) view.findViewById(R.id.ele_address);
             view.setTag(holer);
         }else{
             holer = (ViewHoler) view.getTag();
         }
-        holer.mEleID.setText(elevator.getLIFT_ID());
-        holer.mEleAddress.setText(elevator.getLIFT_USER());
+        holer.mEleID.setText(elevatorParams.getLIFT_ID());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(mContext, ElevatorOperateActivity.class);
+                intent.setClass(mContext, ElevatorParamsOperateActivity.class);
                 Bundle b = new Bundle();
-                b.putSerializable("elevator",elevator);
-                b.putSerializable("opt","detail");
+                b.putSerializable("elevatorParams",elevatorParams);
                 intent.putExtras(b);
                 mContext.startActivity(intent);
             }
@@ -83,7 +80,6 @@ public class ElevatorAdapter extends BaseAdapter {
 
     class ViewHoler{
         TextView mEleID;
-        TextView mEleAddress;
     }
 
 }

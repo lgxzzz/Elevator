@@ -11,8 +11,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.smart.elevator.ElevatorOperateActivity;
 import com.smart.elevator.R;
 import com.smart.elevator.adapter.ElevatorAdapter;
 import com.smart.elevator.adapter.SignAdapter;
@@ -33,6 +35,8 @@ public class ElevotarMgrFragment extends Fragment {
 
     ElevatorAdapter mEleAdapter;
 
+    Button mAddBtn;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragement_elevator, container, false);
@@ -50,6 +54,19 @@ public class ElevotarMgrFragment extends Fragment {
 
         mEleAdapter = new ElevatorAdapter(getContext());
         mEleListView.setAdapter(mEleAdapter);
+
+        mAddBtn = view.findViewById(R.id.add_ele_btn);
+        mAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), ElevatorOperateActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("opt","add");
+                intent.putExtras(b);
+                getContext().startActivity(intent);
+            }
+        });
     };
 
     public void initData(){

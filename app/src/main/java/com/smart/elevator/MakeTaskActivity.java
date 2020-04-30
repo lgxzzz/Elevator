@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RegisterActivity extends AppCompatActivity {
+public class MakeTaskActivity extends AppCompatActivity {
 
     private EditText mNameEd;
     private EditText mPassWordEd;
@@ -37,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_make_task);
 
         init();
     }
@@ -166,32 +165,32 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (mUser.getUserName()==null){
-                    Toast.makeText(RegisterActivity.this,"用户名不能为空！",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MakeTaskActivity.this,"用户名不能为空！",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (mUser.getPassword()==null){
-                    Toast.makeText(RegisterActivity.this,"密码不能为空！",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MakeTaskActivity.this,"密码不能为空！",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (mUser.getRepeatPassword()==null){
-                    Toast.makeText(RegisterActivity.this,"重复密码不能为空！",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MakeTaskActivity.this,"重复密码不能为空！",Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (!mUser.getRepeatPassword().equals(mUser.getPassword())){
-                    Toast.makeText(RegisterActivity.this,"两次密码不一致！",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MakeTaskActivity.this,"两次密码不一致！",Toast.LENGTH_LONG).show();
                     return;
                 }
                 mUser.setRole(mSelectRole);
-                DBManger.getInstance(RegisterActivity.this).registerUser(mUser, new DBManger.IListener() {
+                DBManger.getInstance(MakeTaskActivity.this).registerUser(mUser, new DBManger.IListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(RegisterActivity.this,"注册成功！",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        Toast.makeText(MakeTaskActivity.this,"注册成功！",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MakeTaskActivity.this, MainActivity.class));
                     }
 
                     @Override
                     public void onError(String error) {
-                        Toast.makeText(RegisterActivity.this,"注册失败！",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MakeTaskActivity.this,"注册失败！",Toast.LENGTH_LONG).show();
                     }
                 });
             }

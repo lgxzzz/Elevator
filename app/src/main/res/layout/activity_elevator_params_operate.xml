@@ -11,7 +11,7 @@
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             >
             <LinearLayout
@@ -39,20 +39,19 @@
                     android:layout_marginLeft="5dp"
                     android:id="@+id/LIFT_ID"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="电梯识别码:"
+                    android:text="额定载重量:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -64,22 +63,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_IDCODE"
+                    android:id="@+id/LIFT_RATEDLOAD"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="电梯使用单位:"
+                    android:text="额定速度:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -91,22 +89,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_USER"
+                    android:id="@+id/LIFT_RATEDSPEED"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="电梯所属地区:"
+                    android:text="轿厢宽度:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -118,22 +115,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_AREAID"
+                    android:id="@+id/LIFT_WIDTH"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="电梯地址:"
+                    android:text="轿厢高度:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -145,22 +141,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_ADDRESSID"
+                    android:id="@+id/LIFT_HEIGHT"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="电梯所属维保单位:"
+                    android:text="电梯电压:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -172,22 +167,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_MAINTENANCENAME_ID"
+                    android:id="@+id/LIFT_VOLTAGE"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="电梯品牌:"
+                    android:text="电梯电流:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -199,22 +193,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_BRANDID"
+                    android:id="@+id/LIFT_CURRENT"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="制造单位:"
+                    android:text="曳引机型号:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -226,22 +219,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_PRODUCT"
+                    android:id="@+id/LIFT_TRACTORMODEL"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="制造日期:"
+                    android:text="曳引机最大功率:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -253,22 +245,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_PRODUCTDATE"
+                    android:id="@+id/LIFT_TRACTIORWHEELDIAMETER"
                     >
+
                 </EditText>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 >
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="电梯状态:"
+                    android:text="曳引比:"
                     android:layout_marginLeft="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="20dp"
@@ -280,7 +271,163 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/LIFT_STATUS"
+                    android:id="@+id/LIFT_TRACTIORRATIO"
+                    >
+
+                </EditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                >
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="曳引机类型:"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    >
+
+                </TextView>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/LIFT_TRACTIORTYPE"
+                    >
+
+                </EditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                >
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="缓冲器类型:"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    >
+
+                </TextView>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/LIFT_BUFFERTYPE"
+                    >
+
+                </EditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                >
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="安全齿轮类型:"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    >
+
+                </TextView>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/LIFT_SAFETYGEARTYPE"
+                    >
+
+                </EditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                >
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="曳引机编号:"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    >
+
+                </TextView>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/LIFT_TRACTIORNUMBER"
+                    >
+
+                </EditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                >
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="曳引绳根数:"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    >
+
+                </TextView>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/LIFT_TRACTIORROPENUMBER"
+                    >
+
+                </EditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                >
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="电动机型号:"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    >
+
+                </TextView>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/LIFT_MOTORTYPE"
                     >
                 </EditText>
             </LinearLayout>

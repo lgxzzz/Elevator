@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.constant.Constant;
 import com.smart.elevator.view.TaskDetailDialog;
 
 import java.util.ArrayList;
@@ -64,13 +65,13 @@ public class TaskAdapter extends BaseAdapter {
         holer.mTime.setText(task.getLIFT_SENDTIME());
         holer.mAddress.setText("任务："+task.getElevator().getLIFT_USER());
         holer.mState.setText("状态："+task.getLIFT_CURRENTSTATE());
-        if (task.getLIFT_CURRENTSTATE().equals("待接受")){
+        if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING)){
             holer.mState.setTextColor(Color.GREEN);
-        } else  if (task.getLIFT_CURRENTSTATE().equals("已接受待签到")){
+        } else  if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING_SIGN)){
             holer.mState.setTextColor(Color.BLUE);
-        } else  if (task.getLIFT_CURRENTSTATE().equals("已签到")){
+        } else  if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_SIGN)){
             holer.mState.setTextColor(Color.BLUE);
-        } else  if (task.getLIFT_CURRENTSTATE().equals("已完成")){
+        } else  if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_FINISH)){
             holer.mState.setTextColor(Color.BLACK);
         } else{
             holer.mState.setTextColor(Color.RED);

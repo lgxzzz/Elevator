@@ -19,6 +19,7 @@ import com.smart.elevator.LoginActivity;
 import com.smart.elevator.MainActivity;
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DBManger;
 import com.smart.elevator.util.NotifyState;
 
@@ -73,35 +74,48 @@ public class TaskDetailDialog extends Dialog {
         mSendTimeId.setText(mTask.getLIFT_SENDTIME());
         mState.setText(mTask.getLIFT_CURRENTSTATE());
         mFault.setText(mTask.getLIFT_FAULTTYPE());
-        if (task.getLIFT_CURRENTSTATE().equals("已超时")){
+        if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_TIMEOUT)){
             mAceeptLayout.setVisibility(View.GONE);
-        }else if(task.getLIFT_CURRENTSTATE().equals("已签到")){
+        }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_SIGN)){
             mSureBtn.setText("提交");
             mSureBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
-                    mTask.setLIFT_CURRENTSTATE("已完成");
+                    mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_FINISH);
                     DBManger.getInstance(getContext()).updateTaskFinish(mTask);
                     Toast.makeText(getContext(),"提交任务成功！",Toast.LENGTH_LONG).show();
                     //通知刷新数据
                     NotifyState.notifyRefreshData(getContext());
                 }
             });
-        }else if(task.getLIFT_CURRENTSTATE().equals("已完成")){
+        }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_FINISH)){
             mAceeptLayout.setVisibility(View.GONE);
-        }else if(task.getLIFT_CURRENTSTATE().equals("已接受待签到")){
+        }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING_SIGN)){
             mAceeptLayout.setVisibility(View.GONE);
-        }else{
+        }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING)){
             mSureBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
-                    mTask.setLIFT_CURRENTSTATE("已接受待签到");
+                    mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING_SIGN);
                     DBManger.getInstance(getContext()).insertRepairSign(mTask);
                     Toast.makeText(getContext(),"接受任务成功！",Toast.LENGTH_LONG).show();
                     //通知刷新数据
                     NotifyState.notifyRefreshData(getContext());
+                }
+            });
+        } else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_REPORT)){
+            mSureBtn.setText("制定任务");
+            mSureBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(),ElevatorPlaceActivity.class);
+                    Bundle b = new Bundle();
+                    b.putSerializable("task",mTask);
+                    intent.putExtras(b);
+                    getContext().startActivity(intent);
                 }
             });
         }
