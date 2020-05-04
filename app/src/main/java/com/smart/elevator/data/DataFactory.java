@@ -119,7 +119,8 @@ public class DataFactory {
                     task.setLIFT_SENDTIME(getSendTime());//派单时间
                     task.setLIFT_PROCESSORPHONE("");//维保人电话
                     task.setLIFT_CURRENTSTATE(Constant.TASK_STATE_REPORT);//当前状态
-                    task.setLIFT_FAULTTYPE(getRandomFaultType());//故障类型
+                    task.setLIFT_FAULTTYPE("");//故障类型
+                    task.setFORM_STATE("报修");
                     mTasks.put(LIFT_FORMID,task);
                 }
 

@@ -54,7 +54,7 @@ public class UserAdapter extends BaseAdapter {
         ViewHoler holer = null;
         if (view == null){
             holer = new ViewHoler();
-            view = LayoutInflater.from(mContext).inflate(R.layout.fragement_user,null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.person_item,null);
             holer.mName = (TextView) view.findViewById(R.id.user_name);
             holer.mID = (TextView) view.findViewById(R.id.user_id);
             view.setTag(holer);

@@ -8,8 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +23,15 @@ import com.smart.elevator.LoginActivity;
 import com.smart.elevator.MainActivity;
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.bean.User;
 import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DBManger;
 import com.smart.elevator.util.NotifyState;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class TaskDetailDialog extends Dialog {
@@ -41,7 +51,21 @@ public class TaskDetailDialog extends Dialog {
     private TextView mState;
     private TextView mFault;
     private LinearLayout mAceeptLayout;
+    private LinearLayout mFaultLayout;
+    private LinearLayout mSendTimeLayout;
+    private LinearLayout mStateLayout;
+    private LinearLayout mSelectFaultLayout;
+    private LinearLayout mSelectPersonLayout;
+    private LinearLayout mSelectTimeLayout;
+    private Spinner mFaultSp;
+    private Spinner mPersonSp;
     private Task mTask;
+    private User mUSer;
+    String mSelectPseron;
+    String mSelectFault;
+
+    List<String> mPersonData =new ArrayList<>();
+    List<String> mFaultData =new ArrayList<>();
 
     public TaskDetailDialog(Context context, int layoutid, boolean isCancelable, boolean isBackCancelable) {
         super(context, R.style.MyDialog);
@@ -67,6 +91,7 @@ public class TaskDetailDialog extends Dialog {
 
     public void setData(Task task){
         this.mTask = task;
+        mUSer = DBManger.getInstance(getContext()).mUser;
 
         mTaskId.setText(mTask.getLIFT_FORMID());
         mEleId.setText(mTask.getElevator().getLIFT_ID());
@@ -74,21 +99,38 @@ public class TaskDetailDialog extends Dialog {
         mSendTimeId.setText(mTask.getLIFT_SENDTIME());
         mState.setText(mTask.getLIFT_CURRENTSTATE());
         mFault.setText(mTask.getLIFT_FAULTTYPE());
+
+
         if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_TIMEOUT)){
-            mAceeptLayout.setVisibility(View.GONE);
+            if (mUSer.getRole().equals("维保接待员")){
+                mAceeptLayout.setVisibility(View.VISIBLE);
+                mSureBtn.setText("重新分配");
+                mSureBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING);
+                        //通知刷新数据
+                        NotifyState.notifyRefreshData(getContext());
+                    }
+                });
+            }
         }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_SIGN)){
-            mSureBtn.setText("提交");
-            mSureBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                    mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_FINISH);
-                    DBManger.getInstance(getContext()).updateTaskFinish(mTask);
-                    Toast.makeText(getContext(),"提交任务成功！",Toast.LENGTH_LONG).show();
-                    //通知刷新数据
-                    NotifyState.notifyRefreshData(getContext());
-                }
-            });
+            if (mUSer.getRole().equals("维保人员")){
+                mAceeptLayout.setVisibility(View.VISIBLE);
+                mSureBtn.setText("提交");
+                mSureBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_FINISH);
+                        DBManger.getInstance(getContext()).updateTaskFinish(mTask);
+                        Toast.makeText(getContext(),"提交任务成功！",Toast.LENGTH_LONG).show();
+                        //通知刷新数据
+                        NotifyState.notifyRefreshData(getContext());
+                        }
+                });
+            }
         }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_FINISH)){
             mAceeptLayout.setVisibility(View.GONE);
         }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING_SIGN)){
@@ -106,16 +148,26 @@ public class TaskDetailDialog extends Dialog {
                 }
             });
         } else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_REPORT)){
+            mAceeptLayout.setVisibility(View.VISIBLE);
+            mFaultLayout.setVisibility(View.GONE);
+            mStateLayout.setVisibility(View.GONE);
+            mSendTimeLayout.setVisibility(View.GONE);
+            mSelectFaultLayout.setVisibility(View.VISIBLE);
+            mSelectPersonLayout.setVisibility(View.VISIBLE);
+            mSelectTimeLayout.setVisibility(View.VISIBLE);
+
             mSureBtn.setText("制定任务");
             mSureBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(),ElevatorPlaceActivity.class);
-                    Bundle b = new Bundle();
-                    b.putSerializable("task",mTask);
-                    intent.putExtras(b);
-                    getContext().startActivity(intent);
+                   dismiss();
+                   mTask.setLIFT_FAULTTYPE(mSelectFault);
+                   mTask.setLIFT_PROCESSOR(mSelectPseron);
+                   mTask.setLIFT_SENDTIME(getSendTime());
+                   mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING);
+                   DBManger.getInstance(getContext()).updateTask(mTask);
+                    //通知刷新数据
+                    NotifyState.notifyRefreshData(getContext());
                 }
             });
         }
@@ -130,6 +182,12 @@ public class TaskDetailDialog extends Dialog {
         mState = view.findViewById(R.id.task_state);
         mFault = view.findViewById(R.id.task_fault);
         mAceeptLayout = view.findViewById(R.id.task_acept_layout);
+        mSelectFaultLayout = view.findViewById(R.id.select_fault_layout);
+        mSelectPersonLayout = view.findViewById(R.id.select_person_layout);
+        mSelectTimeLayout = view.findViewById(R.id.select_time_layout);
+        mFaultLayout = view.findViewById(R.id.fault_layout);
+        mSendTimeLayout = view.findViewById(R.id.send_time_layout);
+        mStateLayout = view.findViewById(R.id.state_layout);
 
 
 
@@ -163,6 +221,49 @@ public class TaskDetailDialog extends Dialog {
         });
 
 
+        mFaultSp = view.findViewById(R.id.select_task_fault_sp);
+        mPersonSp = view.findViewById(R.id.select_task_person_sp);
+
+        mFaultData.add("故障老旧");
+        mFaultData.add("线路老化");
+        mFaultData.add("按键失灵");
+
+        mPersonData = DBManger.getInstance(getContext()).getUsersNameByRole("维保人员");
+
+        SpinnerAdapter adapter = new ArrayAdapter<String>(getContext(),R.layout.simple_spinner_item,mFaultData);
+        mFaultSp.setAdapter(adapter);
+        mSelectFault = mFaultData.get(0);
+
+        mFaultSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSelectFault = mFaultData.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        if (mPersonData.size()>0){
+            SpinnerAdapter adapter1 = new ArrayAdapter<String>(getContext(),R.layout.simple_spinner_item,mPersonData);
+            mPersonSp.setAdapter(adapter1);
+            mSelectPseron = mPersonData.get(0);
+
+            mPersonSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mSelectPseron = mPersonData.get(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+
         mCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,5 +272,12 @@ public class TaskDetailDialog extends Dialog {
         });
     }
 
+    //派单日期
+    public String getSendTime(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        String dateStr = simpleDateFormat.format(date);
+        return dateStr;
+    }
 
 }

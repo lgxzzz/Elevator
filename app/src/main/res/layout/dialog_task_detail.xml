@@ -96,6 +96,7 @@
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+
         >
         <TextView
             android:layout_width="150dp"
@@ -123,6 +124,7 @@
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:id="@+id/send_time_layout"
         >
         <TextView
             android:layout_width="150dp"
@@ -150,6 +152,7 @@
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:id="@+id/state_layout"
         >
         <TextView
             android:layout_width="150dp"
@@ -176,6 +179,7 @@
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:id="@+id/fault_layout"
         >
         <TextView
             android:layout_width="150dp"
@@ -199,8 +203,91 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/select_fault_layout"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="选择故障:"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            >
+
+        </TextView>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/select_task_fault_sp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/select_person_layout"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="选择人员:"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            >
+
+        </TextView>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/select_task_person_sp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/select_time_layout"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="截止时间:"
+            android:layout_marginLeft="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            >
+
+        </TextView>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/select_task_time"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/task_acept_layout"
         android:orientation="vertical"
+        android:visibility="gone"
         >
         <TextView
             android:layout_width="wrap_content"

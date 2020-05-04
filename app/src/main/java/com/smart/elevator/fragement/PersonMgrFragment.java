@@ -48,11 +48,11 @@ public class PersonMgrFragment extends Fragment {
     }
 
     public void initView(View view){
-        mListView = view.findViewById(R.id.user_list);
+        mListView = view.findViewById(R.id.person_list);
 
         mAdapter = new UserAdapter(getContext());
         mListView.setAdapter(mAdapter);
-        mAddBtn = view.findViewById(R.id.add_ele_btn);
+        mAddBtn = view.findViewById(R.id.add_person_btn);
         mAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

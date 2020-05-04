@@ -11,8 +11,17 @@ public class Task implements Serializable {
     String LIFT_PROCESSORPHONE;
     String LIFT_CURRENTSTATE;
     String LIFT_FAULTTYPE;
+    String FORM_STATE;
 
     Elevator elevator;
+
+    public String getFORM_STATE() {
+        return FORM_STATE;
+    }
+
+    public void setFORM_STATE(String FORM_STATE) {
+        this.FORM_STATE = FORM_STATE;
+    }
 
     public Elevator getElevator() {
         return elevator;

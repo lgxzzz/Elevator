@@ -134,33 +134,36 @@ public class PersonOperateActivity extends AppCompatActivity implements View.OnC
     }
 
     public void updateUser(){
-        if (mUser.getUserName()==null){
+        String mName = mNameEd.getEditableText().toString();
+        String mPassWord = mPassWordEd.getEditableText().toString();
+        String mTel = mTelEd.getEditableText().toString();
+        String mMail = mMailEd.getEditableText().toString();
+
+        if (mName==null || mName.length()==0){
             Toast.makeText(PersonOperateActivity.this,"用户名不能为空！",Toast.LENGTH_LONG).show();
             return;
         }
-        if (mUser.getPassword()==null){
+        if (mPassWord==null || mPassWord.length() ==0){
             Toast.makeText(PersonOperateActivity.this,"密码不能为空！",Toast.LENGTH_LONG).show();
             return;
         }
-        if (mUser.getRepeatPassword()==null){
-            Toast.makeText(PersonOperateActivity.this,"重复密码不能为空！",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (!mUser.getRepeatPassword().equals(mUser.getPassword())){
-            Toast.makeText(PersonOperateActivity.this,"两次密码不一致！",Toast.LENGTH_LONG).show();
-            return;
-        }
+
+
         mUser.setRole(mSelectRole);
-        DBManger.getInstance(PersonOperateActivity.this).insertUser(mUser, new DBManger.IListener() {
+        mUser.setUserName(mName);
+        mUser.setPassword(mPassWord);
+        mUser.setTelephone(mTel);
+        mUser.setMail(mMail);
+        DBManger.getInstance(PersonOperateActivity.this).updateUser(mUser, new DBManger.IListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(PersonOperateActivity.this,"注册成功！",Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonOperateActivity.this,"修改成功！",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(PersonOperateActivity.this, MainActivity.class));
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(PersonOperateActivity.this,"注册失败！",Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonOperateActivity.this,"修改失败！",Toast.LENGTH_LONG).show();
             }
         });
     }

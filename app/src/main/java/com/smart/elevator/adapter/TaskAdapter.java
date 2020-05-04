@@ -24,7 +24,7 @@ public class TaskAdapter extends BaseAdapter {
     TaskDetailDialog mDialog;
     public TaskAdapter(Context mContext){
         this.mContext = mContext;
-        mDialog = new TaskDetailDialog(mContext,R.layout.dialog_task_detail,true,true);
+
     }
 
     public void setData(List<Task> mTask){
@@ -63,7 +63,7 @@ public class TaskAdapter extends BaseAdapter {
         }
 
         holer.mTime.setText(task.getLIFT_SENDTIME());
-        holer.mAddress.setText("任务："+task.getElevator().getLIFT_USER());
+        holer.mAddress.setText(task.getFORM_STATE()+"任务："+task.getElevator().getLIFT_USER());
         holer.mState.setText("状态："+task.getLIFT_CURRENTSTATE());
         if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING)){
             holer.mState.setTextColor(Color.GREEN);
@@ -79,6 +79,7 @@ public class TaskAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDialog = new TaskDetailDialog(mContext,R.layout.dialog_task_detail,true,true);
                 mDialog.setData(task);
                 mDialog.show();
             }

@@ -5,19 +5,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.services.core.PoiItem;
+import com.smart.elevator.ElevatorOperateActivity;
+import com.smart.elevator.PlanTaskActivity;
 import com.smart.elevator.R;
 import com.smart.elevator.adapter.TaskAdapter;
 import com.smart.elevator.bean.Task;
 import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DBManger;
+import com.smart.elevator.data.DataFactory;
+import com.smart.elevator.navi.LocationMgr;
+import com.smart.elevator.navi.PoiSearchMgr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +44,11 @@ public class PlanFragment extends Fragment {
 
     TaskAdapter mTaskAdapter;
 
+    Button mAddBtn;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragement_task, container, false);
+        View view =  inflater.inflate(R.layout.fragement_plan, container, false);
         initView(view);
         registerBroadcast();
         return view;
@@ -54,10 +68,23 @@ public class PlanFragment extends Fragment {
         mTaskListView = view.findViewById(R.id.task_list);
         mTaskAdapter = new TaskAdapter(getContext());
         mTaskListView.setAdapter(mTaskAdapter);
+        mAddBtn = view.findViewById(R.id.add_task_btn);
+        mAddBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), PlanTaskActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("opt","add");
+                intent.putExtras(b);
+                getContext().startActivity(intent);
+            }
+        });
     };
 
     public void initData(){
-        mTask = DBManger.getInstance(getContext()).getCurrentTasks();
+        String sql = "select * from Task where FORM_STATE =?";
+        mTask = DBManger.getInstance(getContext()).getTaskBSql(sql,"定期");
         mTaskAdapter.setData(mTask);
     }
 

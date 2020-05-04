@@ -104,13 +104,21 @@ public class DBManger {
     //修改用户信息
     public void updateUser(User user,IListener listener){
         try{
-            ContentValues values = new ContentValues();
-            values.put("UserName",user.getUserName());
-            values.put("Sex",user.getSex());
-            values.put("Telephone",user.getTelephone());
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
-            int code = db.update(SQLiteDbHelper.TAB_USER,values,"UserId =?",new String[]{user.getUserId()+""});
-            listener.onSuccess();
+            Cursor cursor = db.rawQuery("select * from UserInfo where USER_NAME=?",new String[]{user.getUserName()});
+            if (cursor.moveToFirst()){
+                ContentValues values = new ContentValues();
+                values.put("USER_NAME",user.getUserName());
+                values.put("USER_MAIL",user.getMail());
+                values.put("LIFT_PROCESSORPHONE",user.getTelephone());
+                values.put("USER_CHARCTER",user.getRole());
+
+                int code = db.update(SQLiteDbHelper.TAB_USER,values,"USER_NAME =?",new String[]{user.getUserName()+""});
+                listener.onSuccess();
+            }else {
+                insertUser(user,listener);
+            }
+
         }catch (Exception e){
 
         }
@@ -190,6 +198,22 @@ public class DBManger {
                 user.setMail(USER_MAIL);
                 user.setRole(USER_CHARCTER);
                 mUsers.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mUsers;
+    }
+
+    //获取所有用户
+    public List<String> getUsersNameByRole(String role){
+        List<String> mUsers = new ArrayList<>();
+        try{
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery("select * from UserInfo where USER_CHARCTER=?",new String[]{role});
+            while (cursor.moveToNext()){
+                String USER_NAME = cursor.getString(cursor.getColumnIndex("USER_NAME"));
+                mUsers.add(USER_NAME);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -340,6 +364,30 @@ public class DBManger {
         return mElevators;
     }
 
+    //获取所有电梯ID
+    public List<String> getAllElevatorID(){
+        List<String> mElevators = new ArrayList<>();
+        try{
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            Cursor cursor = db.query(SQLiteDbHelper.TAB_ELEVATOR,null,null,null,null,null,null);
+            while (cursor.moveToNext()){
+                String LIFT_IDCODE = cursor.getString(cursor.getColumnIndex("LIFT_IDCODE"));
+                String LIFT_USER = cursor.getString(cursor.getColumnIndex("LIFT_USER"));
+                String LIFT_AREAID = cursor.getString(cursor.getColumnIndex("LIFT_AREAID"));
+                String LIFT_ADDRESSID = cursor.getString(cursor.getColumnIndex("LIFT_ADDRESSID"));
+                String LIFT_MAINTENANCENAME_ID = cursor.getString(cursor.getColumnIndex("LIFT_MAINTENANCENAME_ID"));
+                String LIFT_BRANDID = cursor.getString(cursor.getColumnIndex("LIFT_BRANDID"));
+                String LIFT_PRODUCTDATE = cursor.getString(cursor.getColumnIndex("LIFT_PRODUCTDATE"));
+                String LIFT_STATUS = cursor.getString(cursor.getColumnIndex("LIFT_STATUS"));
+
+                mElevators.add(LIFT_IDCODE);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mElevators;
+    }
+
     //注册电梯参数数据
     public void insertElevatorParams(ElevatorParams elevatorParams){
         try{
@@ -464,7 +512,7 @@ public class DBManger {
                 String LIFT_PROCESSORPHONE = cursor.getString(cursor.getColumnIndex("LIFT_PROCESSORPHONE"));
                 String LIFT_CURRENTSTATE = cursor.getString(cursor.getColumnIndex("LIFT_CURRENTSTATE"));
                 String LIFT_FAULTTYPE = cursor.getString(cursor.getColumnIndex("LIFT_FAULTTYPE"));
-
+                String FORM_STATE = cursor.getString(cursor.getColumnIndex("FORM_STATE"));
                 Task task = new Task();
                 task.setLIFT_FORMID(LIFT_FORMID);
                 task.setLIFT_ID(LIFT_ID);
@@ -474,6 +522,7 @@ public class DBManger {
                 task.setLIFT_PROCESSORPHONE(LIFT_PROCESSORPHONE);
                 task.setLIFT_CURRENTSTATE(LIFT_CURRENTSTATE);
                 task.setLIFT_FAULTTYPE(LIFT_FAULTTYPE);
+                task.setFORM_STATE(FORM_STATE);
                 Elevator elevator = getElevatorByID(LIFT_ID);
                 task.setElevator(elevator);
                 mTasks.add(task);
@@ -484,8 +533,69 @@ public class DBManger {
         return mTasks;
     }
 
-    //注册电梯参数数据
+    //根据状态获取任务
+    public List<Task> getTaskBSql(String sql,String state){
+        List<Task> mTasks = new ArrayList<>();
+        try{
+
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery(sql,new String[]{state});
+            while (cursor.moveToNext()){
+                String LIFT_FORMID = cursor.getString(cursor.getColumnIndex("LIFT_FORMID"));
+                String LIFT_ID = cursor.getString(cursor.getColumnIndex("LIFT_ID"));
+                String LIFT_PROCESSOR = cursor.getString(cursor.getColumnIndex("LIFT_PROCESSOR"));
+                String LIFT_FAIULTTIME = cursor.getString(cursor.getColumnIndex("LIFT_FAIULTTIME"));
+                String LIFT_SENDTIME = cursor.getString(cursor.getColumnIndex("LIFT_SENDTIME"));
+                String LIFT_PROCESSORPHONE = cursor.getString(cursor.getColumnIndex("LIFT_PROCESSORPHONE"));
+                String LIFT_CURRENTSTATE = cursor.getString(cursor.getColumnIndex("LIFT_CURRENTSTATE"));
+                String LIFT_FAULTTYPE = cursor.getString(cursor.getColumnIndex("LIFT_FAULTTYPE"));
+                String FORM_STATE = cursor.getString(cursor.getColumnIndex("FORM_STATE"));
+
+                Task task = new Task();
+                task.setLIFT_FORMID(LIFT_FORMID);
+                task.setLIFT_ID(LIFT_ID);
+                task.setLIFT_PROCESSOR(LIFT_PROCESSOR);
+                task.setLIFT_FAIULTTIME(LIFT_FAIULTTIME);
+                task.setLIFT_SENDTIME(LIFT_SENDTIME);
+                task.setLIFT_PROCESSORPHONE(LIFT_PROCESSORPHONE);
+                task.setLIFT_CURRENTSTATE(LIFT_CURRENTSTATE);
+                task.setLIFT_FAULTTYPE(LIFT_FAULTTYPE);
+                task.setFORM_STATE(FORM_STATE);
+                Elevator elevator = getElevatorByID(LIFT_ID);
+                task.setElevator(elevator);
+                mTasks.add(task);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mTasks;
+    }
+
+
+    //添加任务
     public void insertTask(Task task){
+        try{
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("LIFT_FORMID",task.getLIFT_FORMID());
+            values.put("LIFT_ID",task.getLIFT_ID());
+            values.put("FORM_STATE",task.getFORM_STATE());
+            values.put("LIFT_PROCESSOR",task.getLIFT_PROCESSOR());
+            values.put("LIFT_FAIULTTIME",task.getLIFT_FAIULTTIME());
+            values.put("LIFT_SENDTIME",task.getLIFT_SENDTIME());
+            values.put("LIFT_PROCESSORPHONE",task.getLIFT_PROCESSORPHONE());
+            values.put("LIFT_CURRENTSTATE",task.getLIFT_CURRENTSTATE());
+            values.put("LIFT_FAULTTYPE",task.getLIFT_FAULTTYPE());
+            long code = db.insert(SQLiteDbHelper.TAB_TASK,null,values);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    //更新任务
+    public void updateTask(Task task){
         try{
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -497,11 +607,14 @@ public class DBManger {
             values.put("LIFT_PROCESSORPHONE",task.getLIFT_PROCESSORPHONE());
             values.put("LIFT_CURRENTSTATE",task.getLIFT_CURRENTSTATE());
             values.put("LIFT_FAULTTYPE",task.getLIFT_FAULTTYPE());
-            long code = db.insert(SQLiteDbHelper.TAB_TASK,null,values);
+            values.put("FORM_STATE",task.getFORM_STATE());
+            long code = db.update(SQLiteDbHelper.TAB_TASK,values,"LIFT_FORMID =?",new String[]{task.getLIFT_FORMID()});
+            long x = code;
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
 
     //生成随机userid
     public String getRandomUSER_ID(){

@@ -11,7 +11,7 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
     //数据库名称
     public static final String DB_NAME = "Elevator.db";
     //数据库版本号
-    public static int DB_VERSION = 11;
+    public static int DB_VERSION = 13;
     //用户表
     public static final String TAB_USER = "UserInfo";
     //电梯表
@@ -102,6 +102,8 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TAB_TASK +
                 "(LIFT_FORMID varchar(20) primary key, " +
                 "LIFT_ID varchar(20), " +
+                "FORM_STATE varchar(20), " +
+                "FORM_PERIOD varchar(20), " +
                 "LIFT_PROCESSOR varchar(20), " +
                 "LIFT_FAIULTTIME varchar(20), " +
                 "LIFT_SENDTIME varchar(20), " +

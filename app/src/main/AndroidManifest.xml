@@ -42,6 +42,7 @@
         <activity android:name=".ElevatorParamsOperateActivity"/>
         <activity android:name=".PersonOperateActivity"/>
         <activity android:name=".TaskActivity"/>
+        <activity android:name=".PlanTaskActivity"/>
         <service android:name="com.amap.api.location.APSService"></service>
         <activity android:name="com.amap.api.navi.AmapRouteActivity"
             android:theme="@android:style/Theme.NoTitleBar"
