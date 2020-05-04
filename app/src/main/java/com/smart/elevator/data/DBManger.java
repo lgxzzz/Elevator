@@ -20,6 +20,7 @@ import com.smart.elevator.util.SharedPreferenceUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -67,6 +68,7 @@ public class DBManger {
             }
         });
         mHandler.sendEmptyMessageDelayed(HSG_CHCEK_STATE,10*1000);
+        mHandler.sendEmptyMessageDelayed(HSG_CHCEK_PLAN_STATE,20*1000);
     }
 
 
@@ -118,7 +120,7 @@ public class DBManger {
             }else {
                 insertUser(user,listener);
             }
-
+            db.close();
         }catch (Exception e){
 
         }
@@ -145,6 +147,7 @@ public class DBManger {
                 long code = db.insert(SQLiteDbHelper.TAB_USER,null,values);
                 listener.onSuccess();
             }
+            db.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -170,6 +173,7 @@ public class DBManger {
                 long code = db.insert(SQLiteDbHelper.TAB_USER,null,values);
                 listener.onSuccess();
             }
+            db.close();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -206,13 +210,43 @@ public class DBManger {
     }
 
     //获取所有用户
-    public List<String> getUsersNameByRole(String role){
+    public List<User> getUsersNameByRole(String role){
+        List<User> mUsers = new ArrayList<>();
+        try{
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery("select * from UserInfo where USER_CHARCTER=?",new String[]{role});
+            while (cursor.moveToNext()){
+                String USER_ID = cursor.getString(cursor.getColumnIndex("USER_ID"));
+                String USER_NAME = cursor.getString(cursor.getColumnIndex("USER_NAME"));
+                String USER_PASSWORD = cursor.getString(cursor.getColumnIndex("USER_PASSWORD"));
+                String LIFT_PROCESSORPHONE = cursor.getString(cursor.getColumnIndex("LIFT_PROCESSORPHONE"));
+                String USER_MAIL = cursor.getString(cursor.getColumnIndex("USER_MAIL"));
+                String USER_CHARCTER = cursor.getString(cursor.getColumnIndex("USER_CHARCTER"));
+
+                User user = new User();
+                user.setUserId(USER_ID);
+                user.setUserName(USER_NAME);
+                user.setPassword(USER_PASSWORD);
+                user.setTelephone(LIFT_PROCESSORPHONE);
+                user.setMail(USER_MAIL);
+                user.setRole(USER_CHARCTER);
+                mUsers.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mUsers;
+    }
+
+    //获取所有用户
+    public List<String> getUsersNameNameByRole(String role){
         List<String> mUsers = new ArrayList<>();
         try{
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
             Cursor cursor = db.rawQuery("select * from UserInfo where USER_CHARCTER=?",new String[]{role});
             while (cursor.moveToNext()){
                 String USER_NAME = cursor.getString(cursor.getColumnIndex("USER_NAME"));
+
                 mUsers.add(USER_NAME);
             }
         }catch (Exception e){
@@ -338,6 +372,7 @@ public class DBManger {
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
             Cursor cursor = db.query(SQLiteDbHelper.TAB_ELEVATOR,null,null,null,null,null,null);
             while (cursor.moveToNext()){
+                String LIFT_ID = cursor.getString(cursor.getColumnIndex("LIFT_ID"));
                 String LIFT_IDCODE = cursor.getString(cursor.getColumnIndex("LIFT_IDCODE"));
                 String LIFT_USER = cursor.getString(cursor.getColumnIndex("LIFT_USER"));
                 String LIFT_AREAID = cursor.getString(cursor.getColumnIndex("LIFT_AREAID"));
@@ -348,7 +383,8 @@ public class DBManger {
                 String LIFT_STATUS = cursor.getString(cursor.getColumnIndex("LIFT_STATUS"));
 
                 Elevator elevator = new Elevator();
-                elevator.setLIFT_ID(LIFT_IDCODE);
+                elevator.setLIFT_ID(LIFT_ID);
+                elevator.setLIFT_IDCODE(LIFT_IDCODE);
                 elevator.setLIFT_USER(LIFT_USER);
                 elevator.setLIFT_AREAID(LIFT_AREAID);
                 elevator.setLIFT_ADDRESSID(LIFT_ADDRESSID);
@@ -371,6 +407,7 @@ public class DBManger {
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
             Cursor cursor = db.query(SQLiteDbHelper.TAB_ELEVATOR,null,null,null,null,null,null);
             while (cursor.moveToNext()){
+                String LIFT_ID = cursor.getString(cursor.getColumnIndex("LIFT_ID"));
                 String LIFT_IDCODE = cursor.getString(cursor.getColumnIndex("LIFT_IDCODE"));
                 String LIFT_USER = cursor.getString(cursor.getColumnIndex("LIFT_USER"));
                 String LIFT_AREAID = cursor.getString(cursor.getColumnIndex("LIFT_AREAID"));
@@ -380,7 +417,7 @@ public class DBManger {
                 String LIFT_PRODUCTDATE = cursor.getString(cursor.getColumnIndex("LIFT_PRODUCTDATE"));
                 String LIFT_STATUS = cursor.getString(cursor.getColumnIndex("LIFT_STATUS"));
 
-                mElevators.add(LIFT_IDCODE);
+                mElevators.add(LIFT_ID);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -497,6 +534,54 @@ public class DBManger {
         return mElevatorsParams;
     }
 
+    //获取电梯参数
+    public ElevatorParams getElevatorParamsByID(String LIFT_ID){
+        ElevatorParams elevatorParams = null;
+        try{
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery("select * from ElevatorParams where LIFT_ID=?",new String[]{LIFT_ID});
+            while (cursor.moveToNext()){
+                String LIFT_RATEDLOAD = cursor.getString(cursor.getColumnIndex("LIFT_RATEDLOAD"));
+                String LIFT_RATEDSPEED = cursor.getString(cursor.getColumnIndex("LIFT_RATEDSPEED"));
+                String LIFT_WIDTH = cursor.getString(cursor.getColumnIndex("LIFT_WIDTH"));
+                String LIFT_HEIGHT = cursor.getString(cursor.getColumnIndex("LIFT_HEIGHT"));
+                String LIFT_VOLTAGE = cursor.getString(cursor.getColumnIndex("LIFT_VOLTAGE"));
+                String LIFT_CURRENT = cursor.getString(cursor.getColumnIndex("LIFT_CURRENT"));
+                String LIFT_TRACTORMODEL = cursor.getString(cursor.getColumnIndex("LIFT_TRACTORMODEL"));
+                String LIFT_TRACTIORWHEELDIAMETER = cursor.getString(cursor.getColumnIndex("LIFT_TRACTIORWHEELDIAMETER"));
+                String LIFT_TRACTIORRATIO = cursor.getString(cursor.getColumnIndex("LIFT_TRACTIORRATIO"));
+                String LIFT_TRACTIORTYPE = cursor.getString(cursor.getColumnIndex("LIFT_TRACTIORTYPE"));
+                String LIFT_BUFFERTYPE = cursor.getString(cursor.getColumnIndex("LIFT_BUFFERTYPE"));
+                String LIFT_SAFETYGEARTYPE = cursor.getString(cursor.getColumnIndex("LIFT_SAFETYGEARTYPE"));
+                String LIFT_TRACTIORNUMBER = cursor.getString(cursor.getColumnIndex("LIFT_TRACTIORNUMBER"));
+                String LIFT_TRACTIORROPENUMBER = cursor.getString(cursor.getColumnIndex("LIFT_TRACTIORROPENUMBER"));
+                String LIFT_MOTORTYPE = cursor.getString(cursor.getColumnIndex("LIFT_MOTORTYPE"));
+
+                ElevatorParams params = new ElevatorParams();
+                params.setLIFT_ID(LIFT_ID);
+                params.setLIFT_RATEDLOAD(LIFT_RATEDLOAD);
+                params.setLIFT_RATEDSPEED(LIFT_RATEDSPEED);
+                params.setLIFT_WIDTH(LIFT_WIDTH);
+                params.setLIFT_HEIGHT(LIFT_HEIGHT);
+                params.setLIFT_VOLTAGE(LIFT_VOLTAGE);
+                params.setLIFT_CURRENT(LIFT_CURRENT);
+                params.setLIFT_TRACTORMODEL(LIFT_TRACTORMODEL);
+                params.setLIFT_TRACTIORWHEELDIAMETER(LIFT_TRACTIORWHEELDIAMETER);
+                params.setLIFT_TRACTIORRATIO(LIFT_TRACTIORRATIO);
+                params.setLIFT_TRACTIORTYPE(LIFT_TRACTIORTYPE);
+                params.setLIFT_BUFFERTYPE(LIFT_BUFFERTYPE);
+                params.setLIFT_SAFETYGEARTYPE(LIFT_SAFETYGEARTYPE);
+                params.setLIFT_TRACTIORNUMBER(LIFT_TRACTIORNUMBER);
+                params.setLIFT_TRACTIORROPENUMBER(LIFT_TRACTIORROPENUMBER);
+                params.setLIFT_MOTORTYPE(LIFT_MOTORTYPE);
+                elevatorParams = params;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return elevatorParams;
+    }
+
     //根据状态获取任务
     public List<Task> getTaskByState(String state){
         List<Task> mTasks = new ArrayList<>();
@@ -513,6 +598,7 @@ public class DBManger {
                 String LIFT_CURRENTSTATE = cursor.getString(cursor.getColumnIndex("LIFT_CURRENTSTATE"));
                 String LIFT_FAULTTYPE = cursor.getString(cursor.getColumnIndex("LIFT_FAULTTYPE"));
                 String FORM_STATE = cursor.getString(cursor.getColumnIndex("FORM_STATE"));
+                String FORM_PERIOD = cursor.getString(cursor.getColumnIndex("FORM_PERIOD"));
                 Task task = new Task();
                 task.setLIFT_FORMID(LIFT_FORMID);
                 task.setLIFT_ID(LIFT_ID);
@@ -523,6 +609,7 @@ public class DBManger {
                 task.setLIFT_CURRENTSTATE(LIFT_CURRENTSTATE);
                 task.setLIFT_FAULTTYPE(LIFT_FAULTTYPE);
                 task.setFORM_STATE(FORM_STATE);
+                task.setFORM_PERIOD(FORM_PERIOD);
                 Elevator elevator = getElevatorByID(LIFT_ID);
                 task.setElevator(elevator);
                 mTasks.add(task);
@@ -534,12 +621,12 @@ public class DBManger {
     }
 
     //根据状态获取任务
-    public List<Task> getTaskBSql(String sql,String state){
+    public List<Task> getTaskBSql(String sql,String[] state){
         List<Task> mTasks = new ArrayList<>();
         try{
 
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
-            Cursor cursor = db.rawQuery(sql,new String[]{state});
+            Cursor cursor = db.rawQuery(sql,state);
             while (cursor.moveToNext()){
                 String LIFT_FORMID = cursor.getString(cursor.getColumnIndex("LIFT_FORMID"));
                 String LIFT_ID = cursor.getString(cursor.getColumnIndex("LIFT_ID"));
@@ -550,6 +637,7 @@ public class DBManger {
                 String LIFT_CURRENTSTATE = cursor.getString(cursor.getColumnIndex("LIFT_CURRENTSTATE"));
                 String LIFT_FAULTTYPE = cursor.getString(cursor.getColumnIndex("LIFT_FAULTTYPE"));
                 String FORM_STATE = cursor.getString(cursor.getColumnIndex("FORM_STATE"));
+                String FORM_PERIOD = cursor.getString(cursor.getColumnIndex("FORM_PERIOD"));
 
                 Task task = new Task();
                 task.setLIFT_FORMID(LIFT_FORMID);
@@ -561,6 +649,7 @@ public class DBManger {
                 task.setLIFT_CURRENTSTATE(LIFT_CURRENTSTATE);
                 task.setLIFT_FAULTTYPE(LIFT_FAULTTYPE);
                 task.setFORM_STATE(FORM_STATE);
+                task.setFORM_PERIOD(FORM_PERIOD);
                 Elevator elevator = getElevatorByID(LIFT_ID);
                 task.setElevator(elevator);
                 mTasks.add(task);
@@ -586,6 +675,8 @@ public class DBManger {
             values.put("LIFT_PROCESSORPHONE",task.getLIFT_PROCESSORPHONE());
             values.put("LIFT_CURRENTSTATE",task.getLIFT_CURRENTSTATE());
             values.put("LIFT_FAULTTYPE",task.getLIFT_FAULTTYPE());
+            values.put("FORM_STATE",task.getFORM_STATE());
+            values.put("FORM_PERIOD",task.getFORM_PERIOD());
             long code = db.insert(SQLiteDbHelper.TAB_TASK,null,values);
 
         }catch (Exception e){
@@ -593,6 +684,22 @@ public class DBManger {
         }
     }
 
+    public void reportTask(Elevator elevator){
+        String LIFT_FORMID = getRandomLIFT_FORMID();
+        Task task = new Task();
+        task.setLIFT_FORMID(LIFT_FORMID);//维保工单ID（主键）
+        task.setElevator(elevator);//电梯ID
+        task.setLIFT_ID(elevator.getLIFT_ID());
+        task.setLIFT_PROCESSOR("");//维保人员
+        task.setLIFT_FAIULTTIME(getSendTime());//报修时间
+        task.setLIFT_SENDTIME(getSendTime());//派单时间
+        task.setLIFT_PROCESSORPHONE("");//维保人电话
+        task.setLIFT_CURRENTSTATE(Constant.TASK_STATE_REPORT);//当前状态
+        task.setLIFT_FAULTTYPE("");//故障类型
+        task.setFORM_STATE("报修");
+        task.setFORM_PERIOD("1");
+        insertTask(task);
+    }
 
     //更新任务
     public void updateTask(Task task){
@@ -616,6 +723,41 @@ public class DBManger {
     }
 
 
+    public void createPlanTask(String LIFT_ID,User mUser,String time){
+        String LIFT_FORMID = getRandomLIFT_FORMID();
+        Task task = new Task();
+        task.setLIFT_FORMID(LIFT_FORMID);//维保工单ID（主键）
+        Elevator elevator = getElevatorByID(LIFT_ID);
+        task.setElevator(elevator);//电梯ID
+        task.setLIFT_ID(LIFT_ID);
+        task.setLIFT_PROCESSOR(mUser.getUserName());//维保人员
+        task.setLIFT_FAIULTTIME(getSendTime());//报修时间
+        task.setLIFT_SENDTIME(getSendTime());//派单时间
+        task.setLIFT_PROCESSORPHONE(mUser.getTelephone());//维保人电话
+        task.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING);//当前状态
+        task.setLIFT_FAULTTYPE("定期检查");//故障类型
+        task.setFORM_STATE("定期");
+        task.setFORM_PERIOD(time);
+        insertTask(task);
+    }
+
+    //生成随机LIFT_FORMID
+    public String getRandomLIFT_FORMID(){
+        String strRand="LF" ;
+        for(int i=0;i<10;i++){
+            strRand += String.valueOf((int)(Math.random() * 10)) ;
+        }
+        return strRand;
+    }
+
+    //生成保修日期
+    public String getSendTime(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        String dateStr = simpleDateFormat.format(date);
+        return dateStr;
+    }
+
     //生成随机userid
     public String getRandomUSER_ID(){
         String strRand="LF" ;
@@ -628,14 +770,17 @@ public class DBManger {
     //更新维修签到
     public void insertRepairSign(Task task){
         //更新任务状态
-        mDataFactory.updateTask(task);
-        mDataFactory.addRepairSign(task);
+//        mDataFactory.updateTask(task);
+//        mDataFactory.addRepairSign(task);
+        updateTask(task);
+
     }
 
     //提交任务
     public void updateTaskFinish(Task task){
-        mDataFactory.updateTask(task);
+//        mDataFactory.updateTask(task);
 //        mDataFactory.mRepairSigns.remove(task.getLIFT_FORMID());
+        updateTask(task);
     }
 
     //获取所有任务
@@ -648,10 +793,44 @@ public class DBManger {
         return mtask;
     }
 
-    //根据eleid获取电梯参数
-    public ElevatorParams getElevatorParamsByID(String LIFT_ID){
-        ElevatorParams elevatorParams = mDataFactory.mElevatorParams.get(LIFT_ID);
-        return elevatorParams;
+    //获取所有任务
+    public List<Task> getAllTasks(){
+        List<Task> mTasks = new ArrayList<>();
+        try{
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            Cursor cursor = db.query(SQLiteDbHelper.TAB_TASK,null,null,null,null,null,null);
+            while (cursor.moveToNext()){
+                String LIFT_FORMID = cursor.getString(cursor.getColumnIndex("LIFT_FORMID"));
+                String LIFT_ID = cursor.getString(cursor.getColumnIndex("LIFT_ID"));
+                String LIFT_PROCESSOR = cursor.getString(cursor.getColumnIndex("LIFT_PROCESSOR"));
+                String LIFT_FAIULTTIME = cursor.getString(cursor.getColumnIndex("LIFT_FAIULTTIME"));
+                String LIFT_SENDTIME = cursor.getString(cursor.getColumnIndex("LIFT_SENDTIME"));
+                String LIFT_PROCESSORPHONE = cursor.getString(cursor.getColumnIndex("LIFT_PROCESSORPHONE"));
+                String LIFT_CURRENTSTATE = cursor.getString(cursor.getColumnIndex("LIFT_CURRENTSTATE"));
+                String LIFT_FAULTTYPE = cursor.getString(cursor.getColumnIndex("LIFT_FAULTTYPE"));
+                String FORM_STATE = cursor.getString(cursor.getColumnIndex("FORM_STATE"));
+                String FORM_PERIOD = cursor.getString(cursor.getColumnIndex("FORM_PERIOD"));
+                Task task = new Task();
+                task.setLIFT_FORMID(LIFT_FORMID);
+                task.setLIFT_ID(LIFT_ID);
+                task.setLIFT_PROCESSOR(LIFT_PROCESSOR);
+                task.setLIFT_FAIULTTIME(LIFT_FAIULTTIME);
+                task.setLIFT_SENDTIME(LIFT_SENDTIME);
+                task.setLIFT_PROCESSORPHONE(LIFT_PROCESSORPHONE);
+                task.setLIFT_CURRENTSTATE(LIFT_CURRENTSTATE);
+                task.setLIFT_FAULTTYPE(LIFT_FAULTTYPE);
+                task.setFORM_STATE(FORM_STATE);
+                task.setFORM_PERIOD(FORM_PERIOD);
+                Elevator elevator = getElevatorByID(LIFT_ID);
+                task.setElevator(elevator);
+                mTasks.add(task);
+            }
+            db.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return mTasks;
     }
 
     //获取所有维修签到
@@ -674,6 +853,7 @@ public class DBManger {
 
     //轮训任务是否超时
     public static final int HSG_CHCEK_STATE = 1;
+    public static final int HSG_CHCEK_PLAN_STATE = 2;
     public Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -683,33 +863,72 @@ public class DBManger {
                     NotifyState.notifyRefreshData(mContext);
                     mHandler.sendEmptyMessageDelayed(HSG_CHCEK_STATE,10*1000);
                     break;
+                case HSG_CHCEK_PLAN_STATE:
+                    checkPlanTaskState();
+                    NotifyState.notifyRefreshData(mContext);
+                    mHandler.sendEmptyMessageDelayed(HSG_CHCEK_PLAN_STATE,20*1000);
+                    break;
             }
             return false;
         }
     });
 
     public void checkTaskState(){
-        for(Map.Entry<String, Task> entry: mDataFactory.mTasks.entrySet()){
-            Task task = entry.getValue();
+        List<Task> mAllTask = getAllTasks();
+        for (int i=0;i<mAllTask.size();i++){
+            Task task = mAllTask.get(i);
             long sendtime = getStringToDate(task.getLIFT_SENDTIME(),pattern);
             long nowtime = System.currentTimeMillis();
             long temp = nowtime - sendtime;
             if ((temp)>Constant.SIGN_TIME_OUT&&(task.getLIFT_CURRENTSTATE().equals("待接受")||task.getLIFT_CURRENTSTATE().equals("已接受待签到"))){
                 task.setLIFT_CURRENTSTATE("已超时");
+                updateTask(task);
+            }
+            if (task.getFORM_STATE().equals("定期")&&(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_FINISH)||task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_TIMEOUT))){
+                if (checkIsInPeriod(task)){
+                    task.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING);
+                    updateTask(task);
+                }
+            }
+        }
+    }
+
+    public void checkPlanTaskState(){
+        List<Task> mAllTask = getAllTasks();
+        for (int i=0;i<mAllTask.size();i++){
+            Task task = mAllTask.get(i);
+            if (task.getFORM_STATE().equals("定期")&&(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_FINISH)||task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_TIMEOUT))){
+                if (checkIsInPeriod(task)){
+                    task.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING);
+                    updateTask(task);
+                }
+            }
+        }
+    }
+
+    //检查是否超过日期
+    public boolean checkIsInPeriod(Task task){
+        try{
+            int peroid = Integer.parseInt(task.getFORM_PERIOD());
+            //设置转换的日期格式
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            //当前时间
+            Date curDate = new Date(System.currentTimeMillis());
+            //上报时间
+            Date senddate =simpleDateFormat.parse(task.getLIFT_SENDTIME());
+
+            //得到相差的天数 betweenDate
+            long betweenDate = (curDate.getTime() - senddate.getTime())/(60*60*24*1000);
+
+            if (peroid>betweenDate){
+                return true;
             }
 
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        for(Map.Entry<String, Sign> entry: mDataFactory.mRepairSigns.entrySet()){
-            Sign sign = entry.getValue();
-            Task task = sign.getTask();
-            long sendtime = getStringToDate(task.getLIFT_SENDTIME(),pattern);
-            long nowtime = System.currentTimeMillis();
-            long temp = nowtime - sendtime;
-            if ((temp)> Constant.SIGN_TIME_OUT&&sign.getState().equals("待签到")){
-                sign.setState("已超时");
-            }
-
-        }
+        return false;
     }
 
     String pattern = "yyyy-MM-dd HH:mm:ss";

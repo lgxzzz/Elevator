@@ -12,6 +12,15 @@ public class Task implements Serializable {
     String LIFT_CURRENTSTATE;
     String LIFT_FAULTTYPE;
     String FORM_STATE;
+    String FORM_PERIOD;
+
+    public String getFORM_PERIOD() {
+        return FORM_PERIOD;
+    }
+
+    public void setFORM_PERIOD(String FORM_PERIOD) {
+        this.FORM_PERIOD = FORM_PERIOD;
+    }
 
     Elevator elevator;
 

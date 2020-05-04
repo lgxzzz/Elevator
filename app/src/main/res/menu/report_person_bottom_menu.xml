@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/bottom_menu_qr_report"
+        android:icon="@drawable/sign"
+        android:title="扫描报修"
+        />
+</menu>

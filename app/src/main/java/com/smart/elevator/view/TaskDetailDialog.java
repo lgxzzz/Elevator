@@ -110,6 +110,7 @@ public class TaskDetailDialog extends Dialog {
                     public void onClick(View v) {
                         dismiss();
                         mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING);
+                        DBManger.getInstance(getContext()).updateTask(mTask);
                         //通知刷新数据
                         NotifyState.notifyRefreshData(getContext());
                     }
@@ -136,17 +137,22 @@ public class TaskDetailDialog extends Dialog {
         }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING_SIGN)){
             mAceeptLayout.setVisibility(View.GONE);
         }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING)){
-            mSureBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                    mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING_SIGN);
-                    DBManger.getInstance(getContext()).insertRepairSign(mTask);
-                    Toast.makeText(getContext(),"接受任务成功！",Toast.LENGTH_LONG).show();
-                    //通知刷新数据
-                    NotifyState.notifyRefreshData(getContext());
-                }
-            });
+            if (mUSer.getRole().equals("维保人员")){
+                mAceeptLayout.setVisibility(View.VISIBLE);
+                mSureBtn.setText("接受");
+                mSureBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_WAITING_SIGN);
+                        DBManger.getInstance(getContext()).insertRepairSign(mTask);
+                        Toast.makeText(getContext(),"接受任务成功！",Toast.LENGTH_LONG).show();
+                        //通知刷新数据
+                        NotifyState.notifyRefreshData(getContext());
+                    }
+                });
+            }
+
         } else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_REPORT)){
             mAceeptLayout.setVisibility(View.VISIBLE);
             mFaultLayout.setVisibility(View.GONE);
@@ -154,7 +160,7 @@ public class TaskDetailDialog extends Dialog {
             mSendTimeLayout.setVisibility(View.GONE);
             mSelectFaultLayout.setVisibility(View.VISIBLE);
             mSelectPersonLayout.setVisibility(View.VISIBLE);
-            mSelectTimeLayout.setVisibility(View.VISIBLE);
+//            mSelectTimeLayout.setVisibility(View.VISIBLE);
 
             mSureBtn.setText("制定任务");
             mSureBtn.setOnClickListener(new View.OnClickListener() {
@@ -228,7 +234,7 @@ public class TaskDetailDialog extends Dialog {
         mFaultData.add("线路老化");
         mFaultData.add("按键失灵");
 
-        mPersonData = DBManger.getInstance(getContext()).getUsersNameByRole("维保人员");
+        mPersonData = DBManger.getInstance(getContext()).getUsersNameNameByRole("维保人员");
 
         SpinnerAdapter adapter = new ArrayAdapter<String>(getContext(),R.layout.simple_spinner_item,mFaultData);
         mFaultSp.setAdapter(adapter);

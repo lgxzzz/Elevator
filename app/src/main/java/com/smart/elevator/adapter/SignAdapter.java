@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.smart.elevator.R;
 import com.smart.elevator.bean.Sign;
 import com.smart.elevator.bean.Task;
+import com.smart.elevator.constant.Constant;
 import com.smart.elevator.view.SignDialog;
 import com.smart.elevator.view.TaskDetailDialog;
 
@@ -21,14 +22,14 @@ import java.util.List;
 public class SignAdapter extends BaseAdapter {
 
     Context mContext;
-    List<Sign> mSign = new ArrayList<>();
+    List<Task> mSign = new ArrayList<>();
     SignDialog mDialog;
     public SignAdapter(Context mContext){
         this.mContext = mContext;
         mDialog = new SignDialog(mContext,R.layout.dialog_sign,true,true);
     }
 
-    public void setData(List<Sign> mSign){
+    public void setData( List<Task> mSign){
         this.mSign = mSign;
         notifyDataSetChanged();
     }
@@ -50,7 +51,7 @@ public class SignAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        final Sign sign = this.mSign.get(i);
+        final Task task = this.mSign.get(i);
         SignAdapter.ViewHoler holer = null;
         if (view == null){
             holer = new SignAdapter.ViewHoler();
@@ -62,13 +63,12 @@ public class SignAdapter extends BaseAdapter {
         }else{
             holer = (SignAdapter.ViewHoler) view.getTag();
         }
-        Task task = sign.getTask();
         holer.mTime.setText(task.getLIFT_SENDTIME());
         holer.mAddress.setText("任务："+task.getElevator().getLIFT_USER());
-        holer.mState.setText("状态："+sign.getState());
-        if (sign.getState().equals("待签到")){
+        holer.mState.setText("状态："+task.getLIFT_CURRENTSTATE());
+        if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING_SIGN)){
             holer.mState.setTextColor(Color.GREEN);
-        }else if(sign.getState().equals("已签到")){
+        }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_SIGN)||task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_FINISH)){
             holer.mState.setTextColor(Color.BLUE);
         }else{
             holer.mState.setTextColor(Color.RED);
@@ -76,7 +76,7 @@ public class SignAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDialog.setData(sign);
+                mDialog.setData(task);
                 mDialog.show();
             }
         });

@@ -14,7 +14,9 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import com.smart.elevator.bean.Task;
 import com.smart.elevator.bean.User;
+import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DBManger;
 
 import java.util.ArrayList;
@@ -30,11 +32,11 @@ public class PlanTaskActivity extends AppCompatActivity {
 
     List<String> mPersonData =new ArrayList<>();
     List<String> mEleData =new ArrayList<>();
+    List<User> mUserData =new ArrayList<>();
 
-    private String mSelectPerson="";
     private String mSelectEle="";
-    private int mSelectTime = 1;
-    private User mUser;
+    private String mSelectTime = "1";
+    private User mSelectProcesPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +54,20 @@ public class PlanTaskActivity extends AppCompatActivity {
         mSureBtn = findViewById(R.id.sure_btn);
         mCancelBtn = findViewById(R.id.cancel_btn);
 
-        mPersonData = DBManger.getInstance(this).getUsersNameByRole("维保人员");
-
+        mUserData = DBManger.getInstance(this).getUsersNameByRole("维保人员");
+        mPersonData.clear();
+        for (int i = 0;i<mUserData.size();i++){
+            String name = mUserData.get(i).getUserName();
+            mPersonData.add(name);
+        }
+        mSelectProcesPerson = mUserData.get(0);
         SpinnerAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mPersonData);
         mPersonSp.setAdapter(adapter);
-        mSelectPerson = mPersonData.get(0);
 
         mPersonSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mSelectPerson = mPersonData.get(position);
+                mSelectProcesPerson = mUserData.get(position);
             }
 
             @Override
@@ -88,6 +94,18 @@ public class PlanTaskActivity extends AppCompatActivity {
             }
         });
 
+        mSureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String period = mTimeEd.getEditableText().toString();
+                if (period.length()==0){
+                    Toast.makeText(getBaseContext(),"请填入定期天数！",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                mSelectTime = period;
+                DBManger.getInstance(PlanTaskActivity.this).createPlanTask(mSelectEle,mSelectProcesPerson,mSelectTime);
+            }
+        });
 
         mCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override

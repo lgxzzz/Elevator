@@ -11,7 +11,7 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
     //数据库名称
     public static final String DB_NAME = "Elevator.db";
     //数据库版本号
-    public static int DB_VERSION = 13;
+    public static int DB_VERSION = 16;
     //用户表
     public static final String TAB_USER = "UserInfo";
     //电梯表

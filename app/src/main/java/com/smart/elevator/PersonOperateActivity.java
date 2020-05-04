@@ -159,6 +159,7 @@ public class PersonOperateActivity extends AppCompatActivity implements View.OnC
             public void onSuccess() {
                 Toast.makeText(PersonOperateActivity.this,"修改成功！",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(PersonOperateActivity.this, MainActivity.class));
+                PersonOperateActivity.this.finish();
             }
 
             @Override

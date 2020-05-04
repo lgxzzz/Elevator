@@ -51,7 +51,7 @@ public class TaskActivity extends Activity{
         mTaskListView = findViewById(R.id.task_listview);
         mTaskAdapter = new TaskAdapter(this);
         mTaskListView.setAdapter(mTaskAdapter);
-        List<Task> tempTasks = DBManger.getInstance(this).getCurrentTasks();
+        List<Task> tempTasks = DBManger.getInstance(this).getAllTasks();
         filterTaskByState(state,tempTasks);
         mTaskAdapter.setData(mTask);
     }

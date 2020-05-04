@@ -45,4 +45,14 @@
         android:layout_height="60dp"
         android:visibility="gone"
         />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/report_person_bottom_menu"
+        app:menu="@menu/report_person_bottom_menu"
+        app:itemTextColor="@color/seletor_bottom_navi"
+        app:itemIconTint="@color/seletor_bottom_navi"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        />
 </LinearLayout>

@@ -13,6 +13,6 @@ public class Constant {
     public static String TASK_STATE_WAITING = "待接受";
     public static String TASK_STATE_WAITING_SIGN = "已接受待签到";
     public static String TASK_STATE_SIGN = "已签到";
-    public static String TASK_STATE_FINISH = "已签到";
+    public static String TASK_STATE_FINISH = "已完成";
     public static String TASK_STATE_TIMEOUT = "已超时";
 }

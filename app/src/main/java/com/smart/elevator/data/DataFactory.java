@@ -121,6 +121,7 @@ public class DataFactory {
                     task.setLIFT_CURRENTSTATE(Constant.TASK_STATE_REPORT);//当前状态
                     task.setLIFT_FAULTTYPE("");//故障类型
                     task.setFORM_STATE("报修");
+                    task.setFORM_PERIOD("1");
                     mTasks.put(LIFT_FORMID,task);
                 }
 

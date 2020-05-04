@@ -58,7 +58,7 @@ public class OperateTaskFragment extends Fragment {
 
     public void initData(){
         String sql = "select * from Task where LIFT_CURRENTSTATE !=?";
-        mTask = DBManger.getInstance(getContext()).getTaskBSql(sql,"已报修");
+        mTask = DBManger.getInstance(getContext()).getTaskBSql(sql,new String[]{"已报修"});
         mTaskAdapter.setData(mTask);
     }
 

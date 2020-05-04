@@ -28,11 +28,15 @@ import java.util.List;
 
 public class SignFragment extends Fragment {
 
-    List<Sign> mSign = new ArrayList<>();
+    List<Task> mTask = new ArrayList<>();
+
+    SignAdapter mTaskAdapter;
+
+//    List<Sign> mSign = new ArrayList<>();
 
     ListView mSignListView;
 
-    SignAdapter mSignAdapter;
+//    SignAdapter mSignAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,13 +53,14 @@ public class SignFragment extends Fragment {
     public void initView(View view){
         mSignListView = view.findViewById(R.id.sign_listview);
 
-        mSignAdapter = new SignAdapter(getContext());
-        mSignListView.setAdapter(mSignAdapter);
+        mTaskAdapter = new SignAdapter(getContext());
+        mSignListView.setAdapter(mTaskAdapter);
     };
 
     public void initData(){
-        mSign = DBManger.getInstance(getContext()).getAllRepairSign();
-        mSignAdapter.setData(mSign);
+        String sql = "select * from Task where LIFT_CURRENTSTATE != ? and LIFT_CURRENTSTATE != ?";
+        mTask = DBManger.getInstance(getContext()).getTaskBSql(sql,new String[]{Constant.TASK_STATE_REPORT,Constant.TASK_STATE_WAITING});
+        mTaskAdapter.setData(mTask);
     }
 
 

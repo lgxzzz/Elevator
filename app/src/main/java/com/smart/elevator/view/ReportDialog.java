@@ -4,7 +4,6 @@ package com.smart.elevator.view;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -26,45 +25,34 @@ import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
-import com.smart.elevator.ElevatorPlaceActivity;
-import com.smart.elevator.ElevotorParamsActivity;
 import com.smart.elevator.R;
-import com.smart.elevator.bean.Sign;
+import com.smart.elevator.bean.Elevator;
 import com.smart.elevator.bean.Task;
 import com.smart.elevator.constant.Constant;
 import com.smart.elevator.data.DBManger;
 import com.smart.elevator.util.MapUtil;
 import com.smart.elevator.util.QRCodeUtil;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class SignDialog extends Dialog {
+public class ReportDialog extends Dialog {
 
     private boolean iscancelable;//控制点击dialog外部是否dismiss
     private boolean isBackCancelable;//控制返回键是否dismiss
     private View view;
     private Context context;
-    private Button mSignDecodeBtn;
-    private Button mSignSureBtn;
+    private Button mReportDecodeBtn;
+    private Button mReportSureBtn;
     private ImageView mQrcode;
-    private Task mTask;
+    private Elevator mElevator;
     private TextView mQrcodeTv;
-    private TextView mUserTv;
-    private TextView mCaluteDistanceTv;
-    private TextView mCaluteTimeTv;
 
     private String mDecode = "";
-    private String mDistance = "";
-    //是否正确签到地点
-    private boolean isRightPlace = false;
-    //是否正确签到时间
-    private boolean isRightTime = false;
 
-    public SignDialog(Context context, int layoutid, boolean isCancelable, boolean isBackCancelable) {
+    public ReportDialog(Context context, int layoutid, boolean isCancelable, boolean isBackCancelable) {
         super(context, R.style.MyDialog);
 
         this.context = context;
@@ -86,17 +74,15 @@ public class SignDialog extends Dialog {
 
     }
 
-    public void setData(Task task){
-        this.mTask = task;
-        Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(mTask.getElevator().getLIFT_ADDRESSID(),300,300);
+    public void setData(Elevator elevator){
+        this.mElevator = elevator;
+        Bitmap bitmap = QRCodeUtil.createQRCodeBitmap(mElevator.getLIFT_ADDRESSID(),300,300);
         if (bitmap!=null){
             mQrcode.setImageBitmap(bitmap);
             //长按，通过zxing读取图片，判断是否有二维码
             mQrcode.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View viewm) {
-
-
                     return false;
                 }
             });
@@ -104,15 +90,11 @@ public class SignDialog extends Dialog {
     }
 
     public void initView() {
-        mSignDecodeBtn = view.findViewById(R.id.sign_decode_btn);
-        mSignSureBtn = view.findViewById(R.id.sign_sure_btn);
+        mReportDecodeBtn = view.findViewById(R.id.decode_btn);
+        mReportSureBtn = view.findViewById(R.id.report_btn);
         mQrcode = view.findViewById(R.id.sign_qrcode);
         mQrcodeTv = view.findViewById(R.id.qrcode_place);
-        mUserTv = view.findViewById(R.id.user_place);
-        mCaluteDistanceTv = view.findViewById(R.id.calute_distance);
-        mCaluteTimeTv = view.findViewById(R.id.calute_time);
-
-        mSignDecodeBtn.setOnClickListener(new View.OnClickListener() {
+        mReportDecodeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 decodeBitmap();
@@ -120,23 +102,12 @@ public class SignDialog extends Dialog {
             }
         });
 
-        mSignSureBtn.setOnClickListener(new View.OnClickListener() {
+        mReportSureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isRightPlace){
-                    Toast.makeText(getContext(),"签到失败，不在目标范围内！",Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (!isRightTime){
-                    Toast.makeText(getContext(),"签到失败，不在规定时间范围内！",Toast.LENGTH_LONG).show();
-                    return;
-                }
+                DBManger.getInstance(getContext()).reportTask(mElevator);
+                Toast.makeText(getContext(),"已报修！",Toast.LENGTH_LONG).show();
                 dismiss();
-                Toast.makeText(getContext(),"签到成功！",Toast.LENGTH_LONG).show();
-                mTask.setLIFT_CURRENTSTATE(Constant.TASK_STATE_SIGN);
-                DBManger.getInstance(getContext()).updateTask(mTask);
-                isRightTime = false;
-                isRightPlace = false;
             }
         });
     }
@@ -159,7 +130,6 @@ public class SignDialog extends Dialog {
                     mDecode = re.getText();
                     LatLng latLng = DBManger.getInstance(getContext()).mDataFactory.mCurrentPosition;
                     String user_palce = latLng.longitude+","+latLng.latitude;
-                    mDistance = MapUtil.distance(mDecode,user_palce);
                     mHandler.sendEmptyMessage(1);
                 } catch (NotFoundException e) {
                     e.printStackTrace();
@@ -180,43 +150,11 @@ public class SignDialog extends Dialog {
             switch (msg.what){
                 case 1:
                     mQrcodeTv.setText("二维码地址："+mDecode);
-                    LatLng latLng = DBManger.getInstance(getContext()).mDataFactory.mCurrentPosition;
-                    mUserTv.setText("用户地址："+latLng.longitude+","+latLng.latitude);
-                    mCaluteDistanceTv.setText(caluteDistance());
-                    mCaluteTimeTv.setText(caluteTime());
                     break;
             }
             return false;
         }
     });
-
-    public String caluteDistance(){
-        String des = "";
-        int dis = Integer.parseInt(mDistance);
-        if (dis<1000){
-            des = "1000米范围内，可进行签到！";
-            isRightPlace = true;
-        }else{
-            des = "您当前距离签到地点"+mDistance+"米，不能签到";
-            isRightPlace = false;
-        }
-        return des;
-    }
-
-    public String caluteTime(){
-        String des = "";
-        long sendtime = getStringToDate(mTask.getLIFT_SENDTIME(),pattern);
-        long nowtime = System.currentTimeMillis();
-        long temp = nowtime - sendtime;
-        if ((temp)>Constant.SIGN_TIME_OUT){
-            des = "签到已超时！";
-            isRightTime = false;
-        }else {
-            des = "请在"+getDateTime(sendtime+ Constant.SIGN_TIME_OUT)+"前打卡签到！";
-            isRightTime = true;
-        }
-        return des;
-    }
 
     String pattern = "yyyy-MM-dd HH:mm:ss";
     public static long getStringToDate(String dateString, String pattern) {
