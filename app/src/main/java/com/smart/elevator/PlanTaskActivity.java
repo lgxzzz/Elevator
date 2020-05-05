@@ -102,6 +102,7 @@ public class PlanTaskActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(),"请填入定期天数！",Toast.LENGTH_LONG).show();
                     return;
                 }
+                Toast.makeText(PlanTaskActivity.this,"添加定期任务成功！",Toast.LENGTH_LONG).show();
                 mSelectTime = period;
                 DBManger.getInstance(PlanTaskActivity.this).createPlanTask(mSelectEle,mSelectProcesPerson,mSelectTime);
             }

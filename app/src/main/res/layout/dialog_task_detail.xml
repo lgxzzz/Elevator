@@ -292,8 +292,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="是否接受任务？"
             android:textSize="25dp"
+            android:id="@+id/task_detail_des"
             />
         <LinearLayout
             android:layout_width="300dp"

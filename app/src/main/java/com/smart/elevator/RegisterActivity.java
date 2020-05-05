@@ -185,7 +185,8 @@ public class RegisterActivity extends AppCompatActivity {
                 DBManger.getInstance(RegisterActivity.this).registerUser(mUser, new DBManger.IListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(RegisterActivity.this,"注册成功！",Toast.LENGTH_LONG).show();
+                        User user = DBManger.getInstance(getBaseContext()).mUser;
+                        Toast.makeText(RegisterActivity.this,"注册成功,当前身份："+user.getRole(),Toast.LENGTH_LONG).show();
                         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                     }
 

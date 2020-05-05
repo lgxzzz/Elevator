@@ -50,6 +50,7 @@ public class TaskDetailDialog extends Dialog {
     private TextView mSendTimeId;
     private TextView mState;
     private TextView mFault;
+    private TextView mDetailDes;
     private LinearLayout mAceeptLayout;
     private LinearLayout mFaultLayout;
     private LinearLayout mSendTimeLayout;
@@ -104,6 +105,7 @@ public class TaskDetailDialog extends Dialog {
         if (task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_TIMEOUT)){
             if (mUSer.getRole().equals("维保接待员")){
                 mAceeptLayout.setVisibility(View.VISIBLE);
+                mDetailDes.setText("是否重新分配任务");
                 mSureBtn.setText("重新分配");
                 mSureBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -119,6 +121,7 @@ public class TaskDetailDialog extends Dialog {
         }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_SIGN)){
             if (mUSer.getRole().equals("维保人员")){
                 mAceeptLayout.setVisibility(View.VISIBLE);
+                mDetailDes.setText("是否提交任务");
                 mSureBtn.setText("提交");
                 mSureBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -139,6 +142,7 @@ public class TaskDetailDialog extends Dialog {
         }else if(task.getLIFT_CURRENTSTATE().equals(Constant.TASK_STATE_WAITING)){
             if (mUSer.getRole().equals("维保人员")){
                 mAceeptLayout.setVisibility(View.VISIBLE);
+                mDetailDes.setText("是否接受任务");
                 mSureBtn.setText("接受");
                 mSureBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -194,6 +198,8 @@ public class TaskDetailDialog extends Dialog {
         mFaultLayout = view.findViewById(R.id.fault_layout);
         mSendTimeLayout = view.findViewById(R.id.send_time_layout);
         mStateLayout = view.findViewById(R.id.state_layout);
+        mDetailDes = view.findViewById(R.id.task_detail_des);
+
 
 
 

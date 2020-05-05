@@ -346,15 +346,18 @@ public class DBManger {
                 String LIFT_ADDRESSID = cursor.getString(cursor.getColumnIndex("LIFT_ADDRESSID"));
                 String LIFT_MAINTENANCENAME_ID = cursor.getString(cursor.getColumnIndex("LIFT_MAINTENANCENAME_ID"));
                 String LIFT_BRANDID = cursor.getString(cursor.getColumnIndex("LIFT_BRANDID"));
+                String LIFT_PRODUCT = cursor.getString(cursor.getColumnIndex("LIFT_PRODUCT"));
                 String LIFT_PRODUCTDATE = cursor.getString(cursor.getColumnIndex("LIFT_PRODUCTDATE"));
                 String LIFT_STATUS = cursor.getString(cursor.getColumnIndex("LIFT_STATUS"));
 
-                elevator.setLIFT_ID(LIFT_IDCODE);
+                elevator.setLIFT_ID(LIFT_ID);
+                elevator.setLIFT_IDCODE(LIFT_IDCODE);
                 elevator.setLIFT_USER(LIFT_USER);
                 elevator.setLIFT_AREAID(LIFT_AREAID);
                 elevator.setLIFT_ADDRESSID(LIFT_ADDRESSID);
                 elevator.setLIFT_MAINTENANCENAME_ID(LIFT_MAINTENANCENAME_ID);
                 elevator.setLIFT_BRANDID(LIFT_BRANDID);
+                elevator.setLIFT_PRODUCT(LIFT_PRODUCT);
                 elevator.setLIFT_PRODUCTDATE(LIFT_PRODUCTDATE);
                 elevator.setLIFT_STATUS(LIFT_STATUS);
             }
@@ -379,6 +382,7 @@ public class DBManger {
                 String LIFT_ADDRESSID = cursor.getString(cursor.getColumnIndex("LIFT_ADDRESSID"));
                 String LIFT_MAINTENANCENAME_ID = cursor.getString(cursor.getColumnIndex("LIFT_MAINTENANCENAME_ID"));
                 String LIFT_BRANDID = cursor.getString(cursor.getColumnIndex("LIFT_BRANDID"));
+                String LIFT_PRODUCT = cursor.getString(cursor.getColumnIndex("LIFT_PRODUCT"));
                 String LIFT_PRODUCTDATE = cursor.getString(cursor.getColumnIndex("LIFT_PRODUCTDATE"));
                 String LIFT_STATUS = cursor.getString(cursor.getColumnIndex("LIFT_STATUS"));
 
@@ -390,6 +394,7 @@ public class DBManger {
                 elevator.setLIFT_ADDRESSID(LIFT_ADDRESSID);
                 elevator.setLIFT_MAINTENANCENAME_ID(LIFT_MAINTENANCENAME_ID);
                 elevator.setLIFT_BRANDID(LIFT_BRANDID);
+                elevator.setLIFT_PRODUCT(LIFT_PRODUCT);
                 elevator.setLIFT_PRODUCTDATE(LIFT_PRODUCTDATE);
                 elevator.setLIFT_STATUS(LIFT_STATUS);
                 mElevators.add(elevator);
