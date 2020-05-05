@@ -41,7 +41,6 @@ public class ElevatorPlaceActivity extends Activity{
     private Marker mLocationMarker; // 选择的点
     private UiSettings mUiSettings;
     private EleInfoWindowAdapter mAdapter;
-    Task mTask;
     private Elevator mElevator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +70,7 @@ public class ElevatorPlaceActivity extends Activity{
     };
 
     public void initData(){
-        mTask = (Task) getIntent().getExtras().getSerializable("task");
-        mElevator = mTask.getElevator();
+        mElevator = (Elevator) getIntent().getExtras().getSerializable("elevator");
         String address = mElevator.getLIFT_ADDRESSID();
         String[] params= address.split(",");
         double lat = Double.parseDouble(params[1]);
@@ -104,7 +102,7 @@ public class ElevatorPlaceActivity extends Activity{
         LatLng mPosition = mLocationMarker.getPosition();
         mAdapter = new EleInfoWindowAdapter(this);
         mAMap.setInfoWindowAdapter(mAdapter);
-        mAdapter.setTask(mTask);
+        mAdapter.setElevator(mElevator);
     }
 
 }

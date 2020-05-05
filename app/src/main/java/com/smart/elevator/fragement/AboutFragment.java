@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.smart.elevator.ElevotorParamsActivity;
 import com.smart.elevator.R;
+import com.smart.elevator.SearchElevatorActivity;
 import com.smart.elevator.TaskActivity;
 import com.smart.elevator.bean.User;
 import com.smart.elevator.data.DBManger;
@@ -29,6 +30,7 @@ public class AboutFragment extends Fragment {
     Button mUpdateBtn;
     Button mTaskCurrentBtn;
     Button mTaskHistoryBtn;
+    Button mSearchElevatorBtn;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class AboutFragment extends Fragment {
         mUpdateBtn = view.findViewById(R.id.user_update_btn);
         mTaskCurrentBtn = view.findViewById(R.id.task_current_btn);
         mTaskHistoryBtn = view.findViewById(R.id.task_history_btn);
+        mSearchElevatorBtn = view.findViewById(R.id.search_elevator_btn);
     };
 
     public void initData() {
@@ -89,6 +92,15 @@ public class AboutFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putSerializable("state","历史任务");
                 intent.putExtras(b);
+                getContext().startActivity(intent);
+            }
+        });
+
+        mSearchElevatorBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), SearchElevatorActivity.class);
                 getContext().startActivity(intent);
             }
         });

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PersonOperateActivity extends AppCompatActivity implements View.OnClickListener{
+public class PersonOperateActivity extends AppCompatActivity{
 
     private EditText mNameEd;
     private EditText mPassWordEd;
@@ -60,8 +60,6 @@ public class PersonOperateActivity extends AppCompatActivity implements View.OnC
         mRoleSp = findViewById(R.id.user_role);
         mUpdateBtn = findViewById(R.id.elevator_update_btn);
         mDeleteBtn = findViewById(R.id.elevator_delete_btn);
-        mUpdateBtn.setOnClickListener(this);
-        mDeleteBtn.setOnClickListener(this);
 
 
         final List<String> mRoles =new ArrayList<>();
@@ -92,45 +90,58 @@ public class PersonOperateActivity extends AppCompatActivity implements View.OnC
 
         if (mOpt.equals("add")){
             mUser = new User();
-            mRoleTv.setText("角色:");
             mRoleSp.setVisibility(View.VISIBLE);
             switchEdit(true);
+            mRoleTv.setText(mSelectRole);
+            mRoleTv.setVisibility(View.GONE);
+            mRoleSp.setVisibility(View.VISIBLE);
+            mUpdateBtn.setText("添加");
+            mDeleteBtn.setText("取消");
+
+            mUpdateBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updateUser();
+                }
+            });
+            mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
         }else{
             mUser =  (User) getIntent().getExtras().getSerializable("user");
             mNameEd.setText(mUser.getUserName());
             mPassWordEd.setText(mUser.getPassword());
             mTelEd.setText(mUser.getTelephone());
             mMailEd.setText(mUser.getMail());
-            mRoleTv.setText("角色:"+mUser.getRole());
-            mRoleTv.setVisibility(View.VISIBLE);
-            mRoleSp.setVisibility(View.GONE);
+            mRoleTv.setText(mUser.getRole());
+            mRoleTv.setVisibility(View.GONE);
+            mRoleSp.setVisibility(View.VISIBLE);
             mSelectRole=mUser.getRole();
-            switchEdit(false);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.elevator_update_btn:
-                if (isEdit){
+            switchEdit(true);
+            mUpdateBtn.setText("更新");
+            mDeleteBtn.setText("删除");
+            mUpdateBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     updateUser();
-                }else{
-                    switchEdit(true);
                 }
-                break;
-            case R.id.elevator_delete_btn:
-                if (isEdit){
-                    switchEdit(false);
-                }else{
+            });
+            mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     deleteUser();
                 }
-                break;
+            });
         }
     }
 
     public void deleteUser(){
+        Toast.makeText(PersonOperateActivity.this,"删除用户成功！",Toast.LENGTH_LONG).show();
         DBManger.getInstance(this).deleteUser(mUser);
+        PersonOperateActivity.this.finish();
     }
 
     public void updateUser(){
@@ -175,14 +186,6 @@ public class PersonOperateActivity extends AppCompatActivity implements View.OnC
         mPassWordEd.setEnabled(isEdit);
         mTelEd.setEnabled(isEdit);
         mMailEd.setEnabled(isEdit);
-        mRoleTv.setText(isEdit?"角色:":"角色:"+mSelectRole);
-        mRoleSp.setVisibility(isEdit?View.VISIBLE:View.GONE);
-        if (isEdit){
-            mUpdateBtn.setText("确定");
-            mDeleteBtn.setText("取消");
-        }else{
-            mUpdateBtn.setText("编辑");
-            mDeleteBtn.setText("删除");
-        }
+
     }
 }

@@ -32,9 +32,8 @@ public class EleInfoWindowAdapter implements AMap.InfoWindowAdapter, View.OnClic
         this.mContext = mContext;
     }
 
-    public void setTask(Task mTask){
-        this.mTask = mTask;
-        this.mElevator=mTask.getElevator();
+    public void setElevator(Elevator mElevator){
+        this.mElevator=mElevator;
     }
 
     @Override
@@ -66,7 +65,7 @@ public class EleInfoWindowAdapter implements AMap.InfoWindowAdapter, View.OnClic
             LIFT_PRODUCT.setText(mElevator.getLIFT_PRODUCT());
             LIFT_PRODUCT.setText(mElevator.getLIFT_PRODUCT());
             LIFT_PRODUCTDATE.setText(mElevator.getLIFT_PRODUCTDATE());
-            LIFT_STATUS.setText(mTask.getLIFT_CURRENTSTATE());
+//            LIFT_STATUS.setText(mTask.getLIFT_CURRENTSTATE());
         }
         return view;
     }

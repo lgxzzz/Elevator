@@ -213,7 +213,7 @@ public class TaskDetailDialog extends Dialog {
                 Intent intent = new Intent();
                 intent.setClass(getContext(),ElevatorPlaceActivity.class);
                 Bundle b = new Bundle();
-                b.putSerializable("task",mTask);
+                b.putSerializable("elevator",mTask.getElevator());
                 intent.putExtras(b);
                 getContext().startActivity(intent);
                 dismiss();

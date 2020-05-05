@@ -265,6 +265,35 @@ public class DBManger {
         }
     }
 
+    //获取所有用户
+    public List<User> QueryUsersByNameKey(String key){
+        List<User> mUsers = new ArrayList<>();
+        try{
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM UserInfo WHERE USER_NAME LIKE '%" + key + "%'", null);
+            while (cursor.moveToNext()){
+                String USER_ID = cursor.getString(cursor.getColumnIndex("USER_ID"));
+                String USER_NAME = cursor.getString(cursor.getColumnIndex("USER_NAME"));
+                String USER_PASSWORD = cursor.getString(cursor.getColumnIndex("USER_PASSWORD"));
+                String LIFT_PROCESSORPHONE = cursor.getString(cursor.getColumnIndex("LIFT_PROCESSORPHONE"));
+                String USER_MAIL = cursor.getString(cursor.getColumnIndex("USER_MAIL"));
+                String USER_CHARCTER = cursor.getString(cursor.getColumnIndex("USER_CHARCTER"));
+
+                User user = new User();
+                user.setUserId(USER_ID);
+                user.setUserName(USER_NAME);
+                user.setPassword(USER_PASSWORD);
+                user.setTelephone(LIFT_PROCESSORPHONE);
+                user.setMail(USER_MAIL);
+                user.setRole(USER_CHARCTER);
+                mUsers.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mUsers;
+    }
+
     //注册电梯数据
     public void insertElevator(Elevator elevator){
         try{
@@ -374,6 +403,43 @@ public class DBManger {
         try{
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
             Cursor cursor = db.query(SQLiteDbHelper.TAB_ELEVATOR,null,null,null,null,null,null);
+            while (cursor.moveToNext()){
+                String LIFT_ID = cursor.getString(cursor.getColumnIndex("LIFT_ID"));
+                String LIFT_IDCODE = cursor.getString(cursor.getColumnIndex("LIFT_IDCODE"));
+                String LIFT_USER = cursor.getString(cursor.getColumnIndex("LIFT_USER"));
+                String LIFT_AREAID = cursor.getString(cursor.getColumnIndex("LIFT_AREAID"));
+                String LIFT_ADDRESSID = cursor.getString(cursor.getColumnIndex("LIFT_ADDRESSID"));
+                String LIFT_MAINTENANCENAME_ID = cursor.getString(cursor.getColumnIndex("LIFT_MAINTENANCENAME_ID"));
+                String LIFT_BRANDID = cursor.getString(cursor.getColumnIndex("LIFT_BRANDID"));
+                String LIFT_PRODUCT = cursor.getString(cursor.getColumnIndex("LIFT_PRODUCT"));
+                String LIFT_PRODUCTDATE = cursor.getString(cursor.getColumnIndex("LIFT_PRODUCTDATE"));
+                String LIFT_STATUS = cursor.getString(cursor.getColumnIndex("LIFT_STATUS"));
+
+                Elevator elevator = new Elevator();
+                elevator.setLIFT_ID(LIFT_ID);
+                elevator.setLIFT_IDCODE(LIFT_IDCODE);
+                elevator.setLIFT_USER(LIFT_USER);
+                elevator.setLIFT_AREAID(LIFT_AREAID);
+                elevator.setLIFT_ADDRESSID(LIFT_ADDRESSID);
+                elevator.setLIFT_MAINTENANCENAME_ID(LIFT_MAINTENANCENAME_ID);
+                elevator.setLIFT_BRANDID(LIFT_BRANDID);
+                elevator.setLIFT_PRODUCT(LIFT_PRODUCT);
+                elevator.setLIFT_PRODUCTDATE(LIFT_PRODUCTDATE);
+                elevator.setLIFT_STATUS(LIFT_STATUS);
+                mElevators.add(elevator);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mElevators;
+    }
+
+    //条件查询电梯数据
+    public List<Elevator> QueryElevatorsByKey(String keyStr,String value){
+        List<Elevator> mElevators = new ArrayList<>();
+        try{
+            SQLiteDatabase db = mDBHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM Elevator WHERE "+keyStr+" LIKE '%" + value + "%'", null);
             while (cursor.moveToNext()){
                 String LIFT_ID = cursor.getString(cursor.getColumnIndex("LIFT_ID"));
                 String LIFT_IDCODE = cursor.getString(cursor.getColumnIndex("LIFT_IDCODE"));
