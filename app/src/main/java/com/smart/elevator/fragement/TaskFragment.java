@@ -31,7 +31,10 @@ import com.smart.elevator.navi.PoiSearchMgr;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 维护人员的任务界面
+ *  显示不是已报修状态的任务
+ * */
 public class TaskFragment extends Fragment {
 
 

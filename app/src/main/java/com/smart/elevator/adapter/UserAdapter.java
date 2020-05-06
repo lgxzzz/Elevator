@@ -17,7 +17,10 @@ import com.smart.elevator.view.TaskDetailDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 管理员用户列表适配器
+ * 点击进入人员编辑界面
+ * */
 public class UserAdapter extends BaseAdapter {
 
     Context mContext;

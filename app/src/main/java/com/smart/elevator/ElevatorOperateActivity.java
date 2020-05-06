@@ -14,7 +14,10 @@ import android.widget.Toast;
 import com.smart.elevator.bean.Elevator;
 import com.smart.elevator.data.DBManger;
 
-
+/***
+ * 电梯编辑操作activity
+ *可编辑或删除
+ * */
 public class ElevatorOperateActivity extends Activity implements View.OnClickListener{
 
     private EditText LIFT_ID;
@@ -64,14 +67,15 @@ public class ElevatorOperateActivity extends Activity implements View.OnClickLis
         mUpdateBtn.setOnClickListener(this);
         mDeleteBtn.setOnClickListener(this);
 
-
+        //传递过来的操作opt区分动作
         mOpt =  (String) getIntent().getExtras().getSerializable("opt");
 
-
+        //添加电梯
         if (mOpt.equals("add")){
             mElevator = new Elevator();
             switchEdit(true);
         }else{
+            //编辑电梯
             mElevator =  (Elevator) getIntent().getExtras().getSerializable("elevator");
             LIFT_ID.setText(mElevator.getLIFT_ID());
             LIFT_IDCODE.setText(mElevator.getLIFT_IDCODE());
@@ -89,6 +93,7 @@ public class ElevatorOperateActivity extends Activity implements View.OnClickLis
 
     }
 
+    //是否编辑切换控件状态
     public void switchEdit(boolean isEdit){
         this.isEdit = isEdit;
         LIFT_ID.setEnabled(isEdit);
@@ -130,11 +135,13 @@ public class ElevatorOperateActivity extends Activity implements View.OnClickLis
         }
     }
 
+    //删除电梯信息
     public void deleteElevator(){
         DBManger.getInstance(this).delteElevator(mElevator);
         finish();
     }
 
+    //更新电梯信息
     public void updateElevator(){
         mElevator.setLIFT_ID(LIFT_ID.getEditableText().toString());
         mElevator.setLIFT_IDCODE(LIFT_IDCODE.getEditableText().toString());

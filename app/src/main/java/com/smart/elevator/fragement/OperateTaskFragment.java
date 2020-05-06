@@ -22,7 +22,10 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 接待员任务管理界面
+ *  状态不是已报修的会显示出来
+ * */
 public class OperateTaskFragment extends Fragment {
 
 

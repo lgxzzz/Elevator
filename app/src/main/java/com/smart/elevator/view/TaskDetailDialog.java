@@ -33,7 +33,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+/***
+ * 维护人员和接待员的任务详情界面
+ * 根据角色和任务状态不同 显示不同的操作按钮和描述
+ * */
 public class TaskDetailDialog extends Dialog {
 
     private boolean iscancelable;//控制点击dialog外部是否dismiss

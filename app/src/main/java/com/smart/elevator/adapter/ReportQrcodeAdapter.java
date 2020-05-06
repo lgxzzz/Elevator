@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/***
+ * 报修人员显示的电梯列表适配器
+ * 点击后显示二维码报修弹窗
+ * */
 public class ReportQrcodeAdapter extends BaseAdapter {
 
     Context mContext;

@@ -1,7 +1,10 @@
 package com.smart.elevator.bean;
 
 import java.io.Serializable;
-
+/***
+ * 封装的用户对象
+ *
+ * */
 public class User  implements Serializable {
     private String UserId;
     private String UserName;

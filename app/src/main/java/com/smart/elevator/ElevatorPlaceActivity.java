@@ -34,12 +34,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/***
+ *地图显示电梯位置信息activity
+ *
+ *
+ * **/
 public class ElevatorPlaceActivity extends Activity{
     private MapView mMapView = null;
     private AMap mAMap;
     private TitleView mTitleView;
     private Marker mLocationMarker; // 选择的点
     private UiSettings mUiSettings;
+    //自定义的地图弹窗布局
     private EleInfoWindowAdapter mAdapter;
     private Elevator mElevator;
     @Override
@@ -70,6 +76,7 @@ public class ElevatorPlaceActivity extends Activity{
     };
 
     public void initData(){
+        //获取电梯的位置信息
         mElevator = (Elevator) getIntent().getExtras().getSerializable("elevator");
         String address = mElevator.getLIFT_ADDRESSID();
         String[] params= address.split(",");

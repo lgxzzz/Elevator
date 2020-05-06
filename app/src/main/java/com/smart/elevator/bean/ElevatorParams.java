@@ -1,7 +1,10 @@
 package com.smart.elevator.bean;
 
 import java.io.Serializable;
-
+/***
+ * 封装的电梯参数对象
+ *
+ * */
 public class ElevatorParams  implements Serializable {
      String LIFT_ID;
      String LIFT_RATEDLOAD;

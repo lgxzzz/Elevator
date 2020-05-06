@@ -10,7 +10,11 @@ import com.smart.elevator.bean.Elevator;
 import com.smart.elevator.bean.ElevatorParams;
 import com.smart.elevator.data.DBManger;
 
-
+/***
+ * 电梯信息编辑activity
+ * 可浏览编辑或删除
+ *
+ * */
 public class ElevatorParamsOperateActivity extends Activity implements View.OnClickListener{
 
     EditText LIFT_ID;
@@ -135,11 +139,13 @@ public class ElevatorParamsOperateActivity extends Activity implements View.OnCl
         }
     }
 
+    //删除电梯信息
     public void deleteElevatorParams(){
         DBManger.getInstance(this).deleteElevatorParams(mElevatorParams);
         finish();
     }
 
+    //更新电梯信息
     public void updateElevatorParams(){
         mElevatorParams.setLIFT_ID(LIFT_ID.getEditableText().toString());
         mElevatorParams.setLIFT_RATEDLOAD(LIFT_RATEDLOAD.getEditableText().toString());

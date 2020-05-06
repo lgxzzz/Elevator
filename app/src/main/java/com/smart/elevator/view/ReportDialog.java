@@ -37,7 +37,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/***
+ * 报修人员的二维码弹窗界面，点击后生成一个对应电梯的报修状态任务
+ * 接待员那边会显示
+ * */
 public class ReportDialog extends Dialog {
 
     private boolean iscancelable;//控制点击dialog外部是否dismiss

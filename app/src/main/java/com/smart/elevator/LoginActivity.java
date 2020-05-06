@@ -15,7 +15,10 @@ import android.widget.Toast;
 import com.smart.elevator.bean.User;
 import com.smart.elevator.data.DBManger;
 
-
+/***
+ * 登录activity
+ *
+ * */
 public class LoginActivity extends Activity implements View.OnClickListener{
 
     private TextView mRegisterView;
@@ -85,6 +88,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
             case R.id.reg_login_btn:
+                //登录操作
                 DBManger.getInstance(LoginActivity.this).login(mName, mPassWord, new DBManger.IListener() {
                     @Override
                     public void onSuccess() {

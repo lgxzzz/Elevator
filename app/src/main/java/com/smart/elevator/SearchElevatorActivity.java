@@ -33,7 +33,10 @@ import com.smart.elevator.util.FragmentUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 电梯查询搜索activity
+ * 分三个条件查询，使用单位，维修单位和生产公司
+ * */
 public class SearchElevatorActivity extends BaseActivtiy {
 
     List<Elevator> mElevators = new ArrayList<>();
@@ -92,7 +95,7 @@ public class SearchElevatorActivity extends BaseActivtiy {
                 searchData();
             }
         });
-
+        //选择查询条件
         mSearchRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -114,7 +117,7 @@ public class SearchElevatorActivity extends BaseActivtiy {
         });
     }
 
-
+    //根据查询条件查询和输入的信息进行模糊查询
     public void searchData(){
         String value = mEleSearchEd.getEditableText().toString();
         List<Elevator> tempElevator = DBManger.getInstance(this).QueryElevatorsByKey(mSearchKey,value);

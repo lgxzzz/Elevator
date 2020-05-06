@@ -20,7 +20,6 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MakeTaskActivity extends AppCompatActivity {
 
     private EditText mNameEd;

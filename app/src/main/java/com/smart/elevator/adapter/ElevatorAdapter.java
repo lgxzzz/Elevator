@@ -20,7 +20,9 @@ import com.smart.elevator.view.TaskDetailDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 电梯适配器
+ * */
 public class ElevatorAdapter extends BaseAdapter {
 
     Context mContext;

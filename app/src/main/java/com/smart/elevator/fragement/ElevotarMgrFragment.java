@@ -26,7 +26,10 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 管理员电梯管理界面
+ *
+ * */
 public class ElevotarMgrFragment extends Fragment {
 
     List<Elevator> mElevators = new ArrayList<>();
@@ -69,6 +72,7 @@ public class ElevotarMgrFragment extends Fragment {
         });
     };
 
+    //查询获取所有的电梯信息
     public void initData(){
         mElevators = DBManger.getInstance(getContext()).getAllElevators();
         mEleAdapter.setData(mElevators);

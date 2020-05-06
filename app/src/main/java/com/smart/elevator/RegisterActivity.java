@@ -21,7 +21,10 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 注册用户activity
+ *
+ * */
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText mNameEd;
@@ -60,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         mRoles.add("维保系统管理员");
         mRoles.add("报修人员");
 
+        //选择用户角色
         SpinnerAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mRoles);
         mRoleSp.setAdapter(adapter);
         mSelectRole = mRoles.get(0);
@@ -75,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
+        //输入姓名
         mNameEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -92,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                 mUser.setUserName(editable.toString());
             }
         });
-
+        //输入密码
         mPassWordEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -109,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                 mUser.setPassword(editable.toString());
             }
         });
-
+        //输入重复密码
         mRepeatPassWordEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -126,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
                 mUser.setRepeatPassword(editable.toString());
             }
         });
-
+        //输入手机号
         mTelEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -144,7 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-
+        //输入邮箱
         mMailEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -161,7 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
                 mUser.setMail(editable.toString());
             }
         });
-
+        //点击注册，判断用户名或者密码是否不为空
         mRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

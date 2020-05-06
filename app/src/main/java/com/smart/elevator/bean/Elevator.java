@@ -2,6 +2,10 @@ package com.smart.elevator.bean;
 
 import java.io.Serializable;
 
+/***
+ * 封装的电梯对象
+ *
+ * */
 public class Elevator implements Serializable {
     String LIFT_ID;
     String LIFT_IDCODE;

@@ -20,7 +20,10 @@ import com.smart.elevator.view.TitleView;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/****
+ *
+ * 显示任务列表，根据任务状态，显示历史任务或者当前任务
+ * */
 public class TaskActivity extends Activity{
 
     private TitleView mTitleView;
@@ -56,6 +59,7 @@ public class TaskActivity extends Activity{
         mTaskAdapter.setData(mTask);
     }
 
+    //过滤任务，符合状态的添加到列表
     public void filterTaskByState(String state,List<Task> tasks){
         for (int i=0;i<tasks.size();i++){
             Task task = tasks.get(i);
