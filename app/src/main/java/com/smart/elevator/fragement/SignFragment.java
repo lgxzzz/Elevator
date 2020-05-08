@@ -25,7 +25,10 @@ import com.smart.elevator.data.DataFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 维护人员的签到界面
+ *
+ * */
 public class SignFragment extends Fragment {
 
     List<Task> mTask = new ArrayList<>();
@@ -56,7 +59,7 @@ public class SignFragment extends Fragment {
         mTaskAdapter = new SignAdapter(getContext());
         mSignListView.setAdapter(mTaskAdapter);
     };
-
+    //查询当前任务状态不是已报修和待接受的任务
     public void initData(){
         String sql = "select * from Task where LIFT_CURRENTSTATE != ? and LIFT_CURRENTSTATE != ?";
         mTask = DBManger.getInstance(getContext()).getTaskBSql(sql,new String[]{Constant.TASK_STATE_REPORT,Constant.TASK_STATE_WAITING});

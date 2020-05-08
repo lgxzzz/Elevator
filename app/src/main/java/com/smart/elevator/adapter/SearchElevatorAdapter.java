@@ -18,7 +18,10 @@ import com.smart.elevator.view.TaskDetailDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 维保人员搜索电梯列表适配器
+ * 点击后跳转地图界面显示具体位置
+ * */
 public class SearchElevatorAdapter extends BaseAdapter {
 
     Context mContext;

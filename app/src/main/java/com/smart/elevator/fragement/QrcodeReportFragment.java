@@ -27,7 +27,10 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 报修人员报修电梯信息管理界面
+ *
+ * */
 public class QrcodeReportFragment extends Fragment {
 
     List<Elevator> mElevators = new ArrayList<>();

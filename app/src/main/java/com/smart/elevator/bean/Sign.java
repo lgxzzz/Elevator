@@ -1,5 +1,8 @@
 package com.smart.elevator.bean;
-
+/***
+ * 封装的签到对象
+ *
+ * */
 public class Sign {
     String type;//维保任务 0，维修任务 1
     Task task;//任务内容

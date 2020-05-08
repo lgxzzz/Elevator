@@ -27,7 +27,10 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 管理员用户管理界面
+ *
+ * */
 public class PersonMgrFragment extends Fragment {
 
     List<User> mUsers = new ArrayList<>();
@@ -106,6 +109,7 @@ public class PersonMgrFragment extends Fragment {
         searchData();
     }
 
+    //根据用户名搜索对应用户，没有填搜索词则返回全部用户
     public void searchData(){
         String value = mPersonSearchEd.getEditableText().toString();
         List<User> tempUsers = DBManger.getInstance(getContext()).QueryUsersByNameKey(value);

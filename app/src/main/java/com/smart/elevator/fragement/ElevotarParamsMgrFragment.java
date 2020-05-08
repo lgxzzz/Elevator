@@ -27,7 +27,10 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 管理员电梯信息管理界面
+ *
+ * */
 public class ElevotarParamsMgrFragment extends Fragment {
 
     List<ElevatorParams> mEleParams = new ArrayList<>();

@@ -1,7 +1,10 @@
 package com.smart.elevator.util;
 
 import java.util.Calendar;
-
+/***
+ * 日期转换工具
+ *
+ * */
 public class DateUtil {
     public static String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();

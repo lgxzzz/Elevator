@@ -20,7 +20,11 @@ import com.smart.elevator.fragement.SignFragment;
 import com.smart.elevator.fragement.TaskFragment;
 import com.smart.elevator.util.FragmentUtils;
 
-
+/***
+ * 主页activity
+ * 根据登录角色显示对应的不同底部tab 执行不同的操作
+ *
+ * */
 public class MainActivity extends BaseActivtiy {
 
     private BottomNavigationView mSysPersonBottomMenu;

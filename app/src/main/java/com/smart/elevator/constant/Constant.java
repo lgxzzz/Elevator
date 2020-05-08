@@ -1,6 +1,7 @@
 package com.smart.elevator.constant;
 
 public class Constant {
+    //通知刷新数据的广播
     public static final String INTENT_REFRESH_DATA = "com.smart.elevator.refreshdata";
 
     //签到超时时间

@@ -16,7 +16,10 @@ import com.smart.elevator.view.TaskDetailDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 维保人员和接待员的任务列表适配器
+ * 点击后显示任务弹窗，可以选择接受任务，提交任务动作
+ * */
 public class TaskAdapter extends BaseAdapter {
 
     Context mContext;

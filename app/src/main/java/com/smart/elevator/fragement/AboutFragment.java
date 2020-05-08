@@ -19,7 +19,10 @@ import com.smart.elevator.TaskActivity;
 import com.smart.elevator.bean.User;
 import com.smart.elevator.data.DBManger;
 
-
+/***
+ * 维保人员个人信息界面
+ *
+ * */
 public class AboutFragment extends Fragment {
 
     //个人信息

@@ -12,6 +12,10 @@ import com.smart.elevator.R;
 import com.smart.elevator.bean.Elevator;
 import com.smart.elevator.bean.Task;
 
+/***
+ * 继承高德地图的自定义弹窗界面
+ * 显示对应的电梯信息
+ * */
 public class EleInfoWindowAdapter implements AMap.InfoWindowAdapter, View.OnClickListener {
 
     private Context mContext;

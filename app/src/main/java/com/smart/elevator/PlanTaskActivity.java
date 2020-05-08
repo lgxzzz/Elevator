@@ -22,7 +22,11 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ *
+ * 定期维修计划activity
+ *
+ * */
 public class PlanTaskActivity extends AppCompatActivity {
     private Spinner mPersonSp;
     private Spinner mElevatorSp;
@@ -53,7 +57,7 @@ public class PlanTaskActivity extends AppCompatActivity {
         mTimeEd =findViewById(R.id.select_time);
         mSureBtn = findViewById(R.id.sure_btn);
         mCancelBtn = findViewById(R.id.cancel_btn);
-
+        //根据角色查询用户，这里把所有维保人员查询出来
         mUserData = DBManger.getInstance(this).getUsersNameByRole("维保人员");
         mPersonData.clear();
         for (int i = 0;i<mUserData.size();i++){
@@ -75,7 +79,7 @@ public class PlanTaskActivity extends AppCompatActivity {
 
             }
         });
-
+        //查询所有电梯的id
         mEleData = DBManger.getInstance(this).getAllElevatorID();
 
         SpinnerAdapter adapter1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,mEleData);
@@ -104,6 +108,7 @@ public class PlanTaskActivity extends AppCompatActivity {
                 }
                 Toast.makeText(PlanTaskActivity.this,"添加定期任务成功！",Toast.LENGTH_LONG).show();
                 mSelectTime = period;
+                //创建定期维护计划，保存到数据
                 DBManger.getInstance(PlanTaskActivity.this).createPlanTask(mSelectEle,mSelectProcesPerson,mSelectTime);
             }
         });

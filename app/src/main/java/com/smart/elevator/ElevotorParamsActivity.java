@@ -19,7 +19,10 @@ import com.smart.elevator.bean.User;
 import com.smart.elevator.data.DBManger;
 import com.smart.elevator.view.TitleView;
 
-
+/**
+ * 电梯信息展示activity
+ *
+ * **/
 public class ElevotorParamsActivity extends AppCompatActivity {
     private TitleView mTitleView;
     private TextView mLIFT_ID;

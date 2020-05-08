@@ -18,7 +18,10 @@ import com.smart.elevator.view.TaskDetailDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 维保人员签到列表适配器
+ * 点击后显示二维码签到弹窗
+ * */
 public class SignAdapter extends BaseAdapter {
 
     Context mContext;

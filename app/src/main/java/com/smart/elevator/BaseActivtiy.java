@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-
+//activity基类
 public class BaseActivtiy extends AppCompatActivity {
 
     protected FragmentManager fragmentManager;

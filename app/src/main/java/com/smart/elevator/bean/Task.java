@@ -1,7 +1,10 @@
 package com.smart.elevator.bean;
 
 import java.io.Serializable;
-
+/***
+ * 封装的任务对象
+ *
+ * */
 public class Task implements Serializable {
     String LIFT_FORMID;
     String LIFT_ID;

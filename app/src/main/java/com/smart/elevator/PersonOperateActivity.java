@@ -22,7 +22,11 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 人员编辑activity
+ * 可浏览编辑信息和删除
+ *
+ * */
 public class PersonOperateActivity extends AppCompatActivity{
 
     private EditText mNameEd;

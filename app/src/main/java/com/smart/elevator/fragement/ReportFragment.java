@@ -22,7 +22,10 @@ import com.smart.elevator.data.DBManger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ * 接待员报修界面界面
+ *
+ * */
 public class ReportFragment extends Fragment {
 
 

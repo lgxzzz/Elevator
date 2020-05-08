@@ -3,7 +3,10 @@ package com.smart.elevator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
+/**
+ *
+ * 过场动画
+ * */
 public class SplashActivity extends Activity {
 
     @Override

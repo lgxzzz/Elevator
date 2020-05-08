@@ -34,7 +34,10 @@ import com.smart.elevator.navi.PoiSearchMgr;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/***
+ *接待员定期维护计划管理界面
+ *
+ * */
 public class PlanFragment extends Fragment {
 
 
@@ -82,6 +85,7 @@ public class PlanFragment extends Fragment {
         });
     };
 
+    //查询所有状态是定期的任务
     public void initData(){
         String sql = "select * from Task where FORM_STATE =?";
         mTask = DBManger.getInstance(getContext()).getTaskBSql(sql,new String[]{"定期"});

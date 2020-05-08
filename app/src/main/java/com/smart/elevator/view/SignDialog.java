@@ -41,7 +41,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/***
+ * 维护人员的二维码弹窗界面，需要判断当前的超时时间和当前位置和电梯位置是否在距离范围内
+ * */
 public class SignDialog extends Dialog {
 
     private boolean iscancelable;//控制点击dialog外部是否dismiss
