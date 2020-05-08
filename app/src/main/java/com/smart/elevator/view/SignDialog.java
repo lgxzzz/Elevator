@@ -193,8 +193,8 @@ public class SignDialog extends Dialog {
     public String caluteDistance(){
         String des = "";
         int dis = Integer.parseInt(mDistance);
-        if (dis<1000){
-            des = "1000米范围内，可进行签到！";
+        if (dis<3000){
+            des = "3000米范围内，可进行签到！";
             isRightPlace = true;
         }else{
             des = "您当前距离签到地点"+mDistance+"米，不能签到";

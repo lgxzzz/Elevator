@@ -7,11 +7,13 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.geocoder.GeocodeAddress;
 import com.smart.elevator.bean.Elevator;
 import com.smart.elevator.bean.ElevatorParams;
 import com.smart.elevator.bean.Sign;
 import com.smart.elevator.bean.Task;
 import com.smart.elevator.constant.Constant;
+import com.smart.elevator.navi.GeoSearchMgr;
 import com.smart.elevator.navi.LocationMgr;
 import com.smart.elevator.navi.PoiSearchMgr;
 import com.smart.elevator.util.NotifyState;
@@ -20,6 +22,7 @@ import com.smart.elevator.util.SharedPreferenceUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,11 +34,15 @@ public class DataFactory {
     private PoiSearchMgr mPoiSearchMgr;
     //定位模块
     private LocationMgr mLocationMgr;
+    //逆地理编码
+    private GeoSearchMgr mGeoSearchMgr;
 
     public LatLng mCurrentPosition; //当前地点
 
     public Double mLongitude;
     public Double mLatitude;
+    public String mCurrenCity = "";
+    public String mCurrenAddress = "";
     private String mKeyWord="电梯";
 
     //电梯数据
@@ -64,6 +71,26 @@ public class DataFactory {
     public void initData(){
         mLocationMgr  = new LocationMgr(mContext);
         mPoiSearchMgr = new PoiSearchMgr(mContext);
+        mGeoSearchMgr = new GeoSearchMgr(mContext);
+
+        mGeoSearchMgr.setGeoSearchListener(new GeoSearchMgr.GeoSearchListener() {
+            @Override
+            public void onSuccess(GeocodeAddress address) {
+                mCurrenAddress = address.getDistrict();
+            }
+
+            @Override
+            public void onSuccess(String address) {
+                mCurrenAddress = address;
+            }
+
+            @Override
+            public void onFail(String error) {
+
+            }
+        });
+
+
         mPoiSearchMgr.setPoiListener(new PoiSearchMgr.PoiSearchListener() {
 
             @Override
@@ -72,6 +99,7 @@ public class DataFactory {
                 mTasks.clear();
                 for (int i = 0;i<poiItems.size();i++){
                     PoiItem item = poiItems.get(i);
+                    mCurrenCity = item.getCityName();
                     //生成电梯数据
                     LatLonPoint latLonPoint = item.getLatLonPoint();
                     String LIFT_ID = getRandomLIFT_ID();
@@ -144,6 +172,10 @@ public class DataFactory {
         mPoiSearchMgr.doSearchQuery(mKeyWord,mCurrentPosition.latitude,mCurrentPosition.longitude);
     }
 
+    public void doSearchByGps(){
+        mGeoSearchMgr.getLocationInfo(new LatLonPoint(mLatitude,mLongitude));
+    }
+
     //获取定位信息并且查询当前的POI点周边
     public void getPosition(){
         mLocationMgr.getLonLat(mContext, new LocationMgr.LonLatListener() {
@@ -152,6 +184,8 @@ public class DataFactory {
                 mLongitude = aMapLocation.getLongitude();
                 mLatitude = aMapLocation.getLatitude();
                 mCurrentPosition = new LatLng(mLatitude,mLongitude);
+                mCurrenCity = aMapLocation.getCity();
+                doSearchByGps();
                 doSearchQueryWithKeyWord();
             }
         });
@@ -219,6 +253,16 @@ public class DataFactory {
         sign.setTask(task);
         sign.setType("维修签到");
         mRepairSigns.put(task.getLIFT_FORMID(),sign);
+    }
+
+    //生成随机对电梯对象
+    public Elevator createRandomElevator(){
+        Elevator elevator = new Elevator();
+        elevator.setLIFT_ID(getRandomLIFT_ID());
+        elevator.setLIFT_IDCODE("ID"+getRandomCode());
+        elevator.setLIFT_ADDRESSID(mLongitude+","+mLatitude);
+        elevator.setLIFT_USER(mCurrenAddress);
+        return elevator;
     }
 
     public IListener mlistener;

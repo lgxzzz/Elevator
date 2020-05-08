@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.smart.elevator.bean.Elevator;
 import com.smart.elevator.data.DBManger;
+import com.smart.elevator.data.DataFactory;
 
 
 public class ElevatorOperateActivity extends Activity implements View.OnClickListener{
@@ -69,24 +70,24 @@ public class ElevatorOperateActivity extends Activity implements View.OnClickLis
 
 
         if (mOpt.equals("add")){
-            mElevator = new Elevator();
+            mElevator = DataFactory.getInstance(getBaseContext()).createRandomElevator();
+
             switchEdit(true);
         }else{
             mElevator =  (Elevator) getIntent().getExtras().getSerializable("elevator");
-            LIFT_ID.setText(mElevator.getLIFT_ID());
-            LIFT_IDCODE.setText(mElevator.getLIFT_IDCODE());
-            LIFT_USER.setText(mElevator.getLIFT_USER());
-            LIFT_AREAID.setText(mElevator.getLIFT_AREAID());
-            LIFT_ADDRESSID.setText(mElevator.getLIFT_ADDRESSID());
-            LIFT_MAINTENANCENAME_ID.setText(mElevator.getLIFT_MAINTENANCENAME_ID());
-            LIFT_BRANDID.setText(mElevator.getLIFT_BRANDID());
-            LIFT_PRODUCT.setText(mElevator.getLIFT_PRODUCT());
-            LIFT_PRODUCT.setText(mElevator.getLIFT_PRODUCT());
-            LIFT_PRODUCTDATE.setText(mElevator.getLIFT_PRODUCTDATE());
-            LIFT_STATUS.setText(mElevator.getLIFT_STATUS());
             switchEdit(false);
         }
-
+        LIFT_ID.setText(mElevator.getLIFT_ID());
+        LIFT_IDCODE.setText(mElevator.getLIFT_IDCODE());
+        LIFT_USER.setText(mElevator.getLIFT_USER());
+        LIFT_AREAID.setText(mElevator.getLIFT_AREAID());
+        LIFT_ADDRESSID.setText(mElevator.getLIFT_ADDRESSID());
+        LIFT_MAINTENANCENAME_ID.setText(mElevator.getLIFT_MAINTENANCENAME_ID());
+        LIFT_BRANDID.setText(mElevator.getLIFT_BRANDID());
+        LIFT_PRODUCT.setText(mElevator.getLIFT_PRODUCT());
+        LIFT_PRODUCT.setText(mElevator.getLIFT_PRODUCT());
+        LIFT_PRODUCTDATE.setText(mElevator.getLIFT_PRODUCTDATE());
+        LIFT_STATUS.setText(mElevator.getLIFT_STATUS());
     }
 
     public void switchEdit(boolean isEdit){
@@ -121,6 +122,11 @@ public class ElevatorOperateActivity extends Activity implements View.OnClickLis
                 }
                 break;
             case R.id.elevator_delete_btn:
+                if (mOpt.equals("add"))
+                {
+                    finish();
+                    return;
+                }
                 if (isEdit){
                     switchEdit(false);
                 }else{
@@ -147,5 +153,7 @@ public class ElevatorOperateActivity extends Activity implements View.OnClickLis
         mElevator.setLIFT_PRODUCTDATE(LIFT_PRODUCTDATE.getEditableText().toString());
         mElevator.setLIFT_STATUS(LIFT_STATUS.getEditableText().toString());
         DBManger.getInstance(this).updateElevator(mElevator);
+        Toast.makeText(getBaseContext(),mOpt.equals("add")?"添加电梯成功！":"编辑电梯成功！",Toast.LENGTH_LONG).show();
+        finish();
     }
 }

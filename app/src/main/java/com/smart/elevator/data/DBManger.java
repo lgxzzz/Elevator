@@ -353,8 +353,10 @@ public class DBManger {
     public boolean isExistElevator(Elevator elevator){
         try{
             SQLiteDatabase db = mDBHelper.getWritableDatabase();
-            long code = db.delete(SQLiteDbHelper.TAB_ELEVATOR,"LIFT_ID =?",new String[]{elevator.getLIFT_ID()});
-            return true;
+            Cursor cursor = db.rawQuery("select * from Elevator where LIFT_ID=?",new String[]{elevator.getLIFT_ID()});
+            if (cursor.moveToFirst()){
+                return true;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
